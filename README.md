@@ -155,6 +155,104 @@ API 返回一个带有以下属性的 JSON 对象：
 }
 ```
 
+### Query View API
+
+端点:  
+**POST /query**
+
+描述：  
+该 API 端点用于处理和响应与 AI 对话系统的交互请求。它接受一个带有待提问的查询、AI 模型的名称、对话历史记录、记忆开关、数据库开关以及集合名称的 JSON 载荷。返回的是 AI 的回复或者错误信息。
+
+当 with_database 为真时，系统将调用 search 函数。这个函数将在 Milvus 数据库的指定集合中进行搜索并生成响应。在这种情况下，集合名称 collection_name 是必需的。当 with_database 为假时，系统将简单地进行一次对话，并不涉及数据库搜索。
+
+请求体：
+
+API 期待在 HTTP 请求体中收到一个带有以下属性的 JSON 对象：
+
+- query（字符串，必需）：要发送给 AI 的消息或问题。
+
+- model_name（字符串，可选）：用于生成回复的 AI 模型的名称，例如"OpenAI"。
+
+- history（数组，可选）：对话历史记录对象的数组，参考上文的历史数组格式。
+
+- with_memory（布尔值，可选）：在生成回复时是否要考虑对话历史记录。如果未提供，默认为 false。
+
+- with_database（布尔值，可选）：是否需要在数据库中查找对应的集合来生成回复。如果未提供，默认为 false。
+
+- collection_name（字符串，可选）：如果使用数据库，此为需要查询的集合名称。
+
+错误：  
+如果出现错误，API 会返回一个包含错误信息的 JSON 对象。
+
+示例：  
+以下是一个请求示例：
+
+```json
+{
+  "query": "今天的天气如何？",
+  "model_name": "OpenAI",
+  "history": [
+    {
+      "type": "human",
+      "data": {
+        "content": "你叫什么名字？"
+      }
+    },
+    {
+      "type": "ai",
+      "data": {
+        "content": "我是由OpenAI开发的AI模型。"
+      }
+    }
+  ],
+  "with_memory": true,
+  "with_database": true,
+  "collection_name": "weather_collection"
+}
+```
+
+正确响应示例：
+
+```json
+{
+  "reply": "今天的天气是晴朗，温度约为27摄氏度。",
+  "history": [
+    {
+      "type": "human",
+      "data": {
+        "content": "你叫什么名字？"
+      }
+    },
+    {
+      "type": "ai",
+      "data": {
+        "content": "我是由OpenAI开发的AI模型。"
+      }
+    },
+    {
+      "type": "human",
+      "data": {
+        "content": "今天的天气如何？"
+      }
+    },
+    {
+      "type": "ai",
+      "data": {
+        "content": "今天的天气是晴朗，温度约为27摄氏度。"
+      }
+    }
+  ]
+}
+```
+
+错误响应示例：
+
+```json
+{
+  "error": "数据库中找不到名为'weather_collection'的集合。"
+}
+```
+
 ### File Upload API
 
 端点:  
