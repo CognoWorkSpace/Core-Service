@@ -1,6 +1,6 @@
 import config
 from langchain.vectorstores.pgvector import PGVector
-
+from langchain.vectorstores import Milvus
 from langchain.vectorstores.pgvector import DistanceStrategy
 
 
@@ -17,5 +17,7 @@ def create_database(database_name="postgres", collection_name="", connection_str
             openai_api_key=config.OPENAI_API_KEY,
             embedding=embeddings
         )
+    elif database_name == "milvus":
+        return Milvus(embedding_function=embeddings, collection_name=collection_name, connection_args=connection_string, drop_old=False)
     else:
         raise ValueError("Database does not exist!")

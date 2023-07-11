@@ -52,10 +52,10 @@ def upload(upload_file, collection_name):
 
     embeddings = create_embedding("OpenAI")  # Creating embedding method
     connection_string = create_connection_string(
-        "postgres")  # Creating Postgres connection string
+        "milvus")  # Creating Milvus connection string
 
-    # Creating Postgres Database
-    database = create_database("postgres", collection_name=collection_name,
+    # Creating Milvus Database
+    database = create_database("milvus", collection_name=collection_name,
                                connection_string=connection_string, embeddings=embeddings)
 
     page_contents = [doc.page_content for doc in docs]

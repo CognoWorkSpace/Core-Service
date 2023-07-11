@@ -6,6 +6,12 @@ PGVECTOR_DATABASE = "testdb"
 PGVECTOR_USER = "test"
 PGVECTOR_PASSWORD = "test"
 
+# The part to connect Milvus database
+MILVUS_HOST = ""
+MILVUS_PORT = ""
+MILVUS_USER = "test"
+MILVUS_PASSWORD = "test"
+
 
 # The part to fill openAI information
 OPENAI_MODEL_NAME = "gpt-4"

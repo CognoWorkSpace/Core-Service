@@ -14,11 +14,15 @@ import config
 
 def search(query, model_name="OpenAI", with_memory=False, history=[], collection_name=None):
 
-    connection_string = create_connection_string(database_name="postgres")
+    # Creating Milvus connection string
+    connection_string = create_connection_string(database_name="milvus")
+    # Creating embedding method
     embeddings = create_embedding()
-    database = create_database(database_name="postgres", collection_name=collection_name,
+    # Creating Milvus Database
+    database = create_database(database_name="milvus", collection_name=collection_name,
                                connection_string=connection_string, embeddings=embeddings)
-    # Convert dics to message object
+
+    # Convert a dics to message object
     chat_history = ChatMessageHistory()
     messages = messages_from_dict(history)
 
@@ -26,16 +30,16 @@ def search(query, model_name="OpenAI", with_memory=False, history=[], collection
     for message in messages:
         chat_history.add_message(message=message)
 
-    # Create memory object that only keep 5 closest messages
+    # Create a memory object that only keep 5 closest messages
     memory = ConversationBufferWindowMemory(
         memory_key="chat_history", k=config.BUFFER_TOP_K, chat_memory=chat_history, return_messages=True)
 
+    # Create a  Coversation Retrieval Chain
     qa = ConversationalRetrievalChain.from_llm(
         llm=create_model(model_name), retriever=database.as_retriever(search_kwargs={"k": 3}), memory=memory)
 
     result = qa({"question": query})
     reply = result['answer']
-    print(result)
 
     history = messages_to_dict(chat_history.messages)
 
