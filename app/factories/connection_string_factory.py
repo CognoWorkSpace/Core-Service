@@ -1,6 +1,5 @@
 import config
 from langchain.vectorstores.pgvector import PGVector
-from langchain.vectorstores import Milvus
 
 
 def create_connection_string(database_name="postgres", **kwargs):

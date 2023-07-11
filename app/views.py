@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from .chains.chat import chat
-from .chains.searchResume import queryResume
-from .chains.refine_search import rquery
+from .chains.search import search
 from .chains.upload import upload
 from django.http import JsonResponse, HttpResponseBadRequest
 import json
@@ -72,8 +71,8 @@ def query_view(request):
                 return HttpResponseBadRequest('Query must not be empty.')
 
             if with_database:
-                response = query(query, model_name, with_memory,
-                                 history, collection_name)
+                response = search(query, model_name, with_memory,
+                                  history, collection_name)
             else:
                 response = chat(query, model_name, with_memory, history)
 

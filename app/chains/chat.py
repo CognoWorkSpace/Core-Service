@@ -37,11 +37,5 @@ def chat(query, model_name="OpenAI", with_memory=False, history=[]):
 
         return {"reply": reply, "history": history}
 
-        # if the user doesn't choose memory
-        # else:
-        #     llm = create_model(model_name)
-        #     reply = llm(query)
-        #     return {"reply": reply, "history": ""}
-
     except ValueError as e:
         print(f"An error occurred: {str(e)}")
