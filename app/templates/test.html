@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GptTest</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      #buttons {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        background-color: #333;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #666;
+      }
+      form {
+        display: none;
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      label,
+      input {
+        display: block;
+        margin-bottom: 10px;
+      }
+      input[type='submit'] {
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        background-color: #333;
+        cursor: pointer;
+      }
+      input[type='submit']:hover {
+        background-color: #666;
+      }
+      #response {
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- Two buttons for showing the forms -->
+    <div id="buttons">
+      <button id="chatButton">Chat Form</button>
+      <button id="searchButton">Search Form</button>
+    </div>
+
+    <form id="chatForm">
+      <label for="message">Message:</label><br />
+      <input type="text" id="message" name="message" /><br />
+      <input type="checkbox" id="with_memory" name="with_memory" />
+      <label for="with_memory">Use Memory</label><br />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <form id="searchForm">
+      <label for="query">Query:</label><br />
+      <input type="text" id="query" name="query" /><br />
+      <label for="selection">Selection:</label><br />
+      <select id="selection" name="selection">
+        <option value="constitution">Constitution</option>
+        <option value="resume">Resume</option></select
+      ><br />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+      $('#chatButton').click(function () {
+        $('#searchForm').hide()
+        $('#chatForm').show()
+      })
+      $('#searchButton').click(function () {
+        $('#chatForm').hide()
+        $('#searchForm').show()
+      })
+
+      $(document).ready(function () {
+        $('#searchForm').on('submit', function (e) {
+          e.preventDefault()
+
+          // Get the selected option
+          var selectedOption = $('#selection').val()
+
+          $.ajax({
+            url: 'http://127.0.0.1:8000/search/' + selectedOption,
+            method: 'POST',
+            data: {
+              message: $('#query').val(),
+              with_memory: $('#with_memory').is(':checked'),
+            },
+            success: function (data) {
+              if (data.error) {
+                $('#response').html('Error: ' + data.error)
+              } else {
+                $('#response').html(data.response)
+              }
+              $('#query').val('') // Clear the input field
+            },
+            error: function (xhr, errmsg, err) {
+              console.log(xhr.status + ': ' + xhr.responseText)
+            },
+          })
+        })
+      })
+
+      $(document).ready(function () {
+        $('#chatForm').on('submit', function (e) {
+          e.preventDefault()
+
+          $.ajax({
+            url: 'http://127.0.0.1:8000/test/',
+            method: 'POST',
+            data: {
+              message: $('#message').val(),
+              with_memory: $('#with_memory').is(':checked'),
+            },
+            success: function (data) {
+              if (data.error) {
+                $('#response').html('Error: ' + data.error)
+              } else {
+                $('#response').html(data.response)
+              }
+              $('#message').val('') // Clear the input field
+            },
+            error: function (xhr, errmsg, err) {
+              console.log(xhr.status + ': ' + xhr.responseText)
+            },
+          })
+        })
+      })
+    </script>
+  </body>
+</html>
