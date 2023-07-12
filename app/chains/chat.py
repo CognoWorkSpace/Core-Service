@@ -3,14 +3,12 @@ from langchain.chains import ConversationChain
 from langchain.memory import ChatMessageHistory
 from langchain.schema import messages_from_dict, messages_to_dict
 
-from ..factories.model_factory import create_model
+from app.factories.model_factory import create_model
 import config
 
 
 def chat(query, model_name="OpenAI", with_memory=False, history=[]):
     try:
-        # if the user choose memory
-        # if with_memory:
         # Convert dics to message object
         chat_history = ChatMessageHistory()
         messages = messages_from_dict(history)

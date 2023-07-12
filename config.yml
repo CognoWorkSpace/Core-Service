@@ -1,0 +1,26 @@
+# General configuration
+model: 'OpenAI'
+database: 'milvus'
+
+# PostgreSQL configuration
+pgvector:
+  driver: 'psycopg2'
+  host: '172.28.30.52'
+  port: '5432'
+  database: 'testdb'
+  user: 'test'
+  password: 'test'
+
+# Milvus configuration
+milvus:
+  host: ''
+  port: ''
+  user: 'test'
+  password: 'test'
+
+# OpenAI configuration
+openai:
+  model_name: 'gpt-3.5-turbo'
+  temperature: 0.7
+  max_tokens: 1024
+  buffer_top_k: 5

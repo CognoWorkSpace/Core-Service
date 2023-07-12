@@ -45,7 +45,6 @@ def upload_view(request):
                 return HttpResponseBadRequest('Both file and collection name are required.')
 
             result = upload(upload_file, collection_name)
-            print(result)
             if result['result'] == 'success':
                 return JsonResponse(result, safe=False)
             else:

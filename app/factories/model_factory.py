@@ -1,17 +1,19 @@
 from langchain.llms import OpenAI
-import openai
+import os
 import config
+from dotenv import load_dotenv
+load_dotenv()
 
 # create a LLM model, GPT is the default model
 
 
-def create_model(model_name="OpenAI", **kwargs):
+def create_model(model_name=config.MODEL, **kwargs):
 
     if 'openai_model_name' not in kwargs:
         kwargs['openai_model_name'] = config.OPENAI_MODEL_NAME
 
     if 'openai_api_key' not in kwargs:
-        kwargs['openai_api_key'] = config.OPENAI_API_KEY
+        kwargs['openai_api_key'] = os.getenv("OPENAI_API_KEY")
 
     if 'max_tokens' not in kwargs:
         kwargs['max_tokens'] = config.OPENAI_MAX_TOKENS

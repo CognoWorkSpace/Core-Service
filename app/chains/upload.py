@@ -1,9 +1,8 @@
-from ..factories.connection_string_factory import create_connection_string
-from ..factories.embedding_factory import create_embedding
-from ..factories.database_factory import create_database
-import config
+from app.factories.connection_string_factory import create_connection_string
+from app.factories.embedding_factory import create_embedding
+from app.factories.database_factory import create_database
 import os
-
+import config
 from langchain.vectorstores.pgvector import PGVector
 from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.document_loaders import PyPDFLoader
@@ -55,7 +54,7 @@ def upload(upload_file, collection_name):
         "milvus")  # Creating Milvus connection string
 
     # Creating Milvus Database
-    database = create_database("milvus", collection_name=collection_name,
+    database = create_database(config.DATABASE, collection_name=collection_name,
                                connection_string=connection_string, embeddings=embeddings)
 
     page_contents = [doc.page_content for doc in docs]

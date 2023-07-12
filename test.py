@@ -31,8 +31,8 @@ def memory_chat_test():
             }
         }
     ]
-    output = chat(query="Good Morning!", model_name="OpenAI",
-                  with_memory=False, history=[])
+    output = chat(query="Good Morning! What's my name?", model_name="OpenAI",
+                  with_memory=False, history=history)
     print(json.dumps(output))
 
 
@@ -53,24 +53,26 @@ def search_test():
         {
             'type': 'human',
             'data': {
-                'content': '什么是反洗钱'
+                'content': ''
             }
         },
         {
             'type': 'ai',
             'data': {
-                'content': '洗钱是一种防止非法资金流动的措施。它是指通过监测和阻止非法资金进入合法金融系统，以及追踪和阻止非法资金从合法金融系统流出的行动。该措施旨在减少洗钱活动、恐怖主义融资和其他非法金融活动的风险。'
+                'content': ''
             }
         }
     ]
     collection_name = "split"
-    output = search(query="金融机构如何开展“法人金融机构洗钱和恐怖融资风险自评估”", model_name="OpenAI",
+    output = search(query="”", model_name="OpenAI",
                     with_memory=True, history=[], collection_name=collection_name)
     print(output)
 
 
-# def upload_test(){
-# }
+def upload_test():
+    return
+
+
 if __name__ == "__main__":
-    # memory_chat_test()  # 调试chat_with_memory的过程
-    search_test()
+    memory_chat_test()  # 调试chat_with_memory的过程
+    # search_test()

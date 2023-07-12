@@ -23,5 +23,6 @@ from app import views
 
 urlpatterns = [
     path('chat/', views.chat_view),
-    path('upload/', views.upload_view)
+    path('upload/', views.upload_view),
+    path('search/', views.search)
 ]

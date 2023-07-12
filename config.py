@@ -1,21 +1,28 @@
-# The part to connect Postgres database
-PGVECTOR_DRIVER = "psycopg2"
-PGVECTOR_HOST = "172.28.30.52"
-PGVECTOR_PORT = "5432"
-PGVECTOR_DATABASE = "testdb"
-PGVECTOR_USER = "test"
-PGVECTOR_PASSWORD = "test"
+import yaml
 
-# The part to connect Milvus database
-MILVUS_HOST = ""
-MILVUS_PORT = ""
-MILVUS_USER = "test"
-MILVUS_PASSWORD = "test"
+with open('config.yml', 'r') as f:
+    config = yaml.safe_load(f)
 
+# General configuration
+MODEL = config['model']
+DATABASE = config['database']
 
-# The part to fill openAI information
-OPENAI_MODEL_NAME = "gpt-4"
-OPENAI_TEMPERATURE = 0.7
-OPENAI_MAX_TOKENS = 1024
-OPENAI_API_KEY = "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"
-BUFFER_TOP_K = 5
+# PostgreSQL configuration
+PGVECTOR_DRIVER = config['pgvector']['driver']
+PGVECTOR_HOST = config['pgvector']['host']
+PGVECTOR_PORT = config['pgvector']['port']
+PGVECTOR_DATABASE = config['pgvector']['database']
+PGVECTOR_USER = config['pgvector']['user']
+PGVECTOR_PASSWORD = config['pgvector']['password']
+
+# Milvus configuration
+MILVUS_HOST = config['milvus']['host']
+MILVUS_PORT = config['milvus']['port']
+MILVUS_USER = config['milvus']['user']
+MILVUS_PASSWORD = config['milvus']['password']
+
+# OpenAI configuration
+OPENAI_MODEL_NAME = config['openai']['model_name']
+OPENAI_TEMPERATURE = config['openai']['temperature']
+OPENAI_MAX_TOKENS = config['openai']['max_tokens']
+BUFFER_TOP_K = config['openai']['buffer_top_k']
