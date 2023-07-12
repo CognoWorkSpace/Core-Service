@@ -11,8 +11,6 @@ from app.factories.database_factory import create_database
 from app.factories.model_factory import create_model
 import config
 
-#
-
 
 def search(query, model_name=config.MODEL, with_memory=False, history=[], collection_name=None):
 

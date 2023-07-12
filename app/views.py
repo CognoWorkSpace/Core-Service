@@ -24,7 +24,7 @@ def chat_view(request):
 
             response = chat(query, model_name, with_memory, history)
 
-            return JsonResponse(response, safe=False)
+            return JsonResponse(response, safe=False, status=200)
 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
@@ -46,7 +46,7 @@ def upload_view(request):
 
             result = upload(upload_file, collection_name)
             if result['result'] == 'success':
-                return JsonResponse(result, safe=False)
+                return JsonResponse(result, safe=False, status=200)
             else:
                 return JsonResponse({'error': result['message']}, status=400)
 
@@ -75,7 +75,7 @@ def query_view(request):
             else:
                 response = chat(query, model_name, with_memory, history)
 
-            return JsonResponse(response, safe=False)
+            return JsonResponse(response, safe=False, status=200)
 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
