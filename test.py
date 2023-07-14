@@ -1,78 +1,109 @@
-from django.test import TestCase
-from app.chains.chat import chat
-from app.chains.search import search
 import json
+import unittest
+
+from app import app
 
 
-def memory_chat_test():
-    history = [
-        {
-            'type': 'human',
-            'data': {
-                'content': 'hi!'
-            }
-        },
-        {
-            'type': 'ai',
-            'data': {
-                'content': 'whats up?'
-            }
-        },
-        {
-            'type': 'human',
-            'data': {
-                'content': 'I am Dijkstra'
-            }
-        },
-        {
-            'type': 'ai',
-            'data': {
-                'content': 'Hello Dijkstra'
-            }
+class ChatTestCases(unittest.TestCase):
+
+    def setUp(self):
+        self.app = app
+        self.client = self.app.test_client()
+
+    def test_single_chat(self):
+        mock_data = {
+            "query": "Hello!",
+            "with_memory": False
         }
-    ]
-    output = chat(query="Good Morning! What's my name?", model_name="OpenAI",
-                  with_memory=False, history=history)
-    print(json.dumps(output))
+        try:
+            response = self.client.post('/chat',
+                                        data=json.dumps(mock_data),
+                                        content_type='application/json')
+            self.assertEqual(200, response.status_code)
+            json_data = response.get_json()
+            self.assertIn('reply', json_data)
+            print(json_data["reply"])
+        except AssertionError as e:
+            print("Test failed. Reason:", str(e))
+            raise
 
-
-def search_test():
-    history = [
-        {
-            'type': 'human',
-            'data': {
-                'content': '你好！'
+    def test_multi_chat(self):
+        history = [
+            {
+                'type': 'human',
+                'data': {
+                    'content': 'hi!'
+                }
+            },
+            {
+                'type': 'ai',
+                'data': {
+                    'content': 'whats up?'
+                }
+            },
+            {
+                'type': 'human',
+                'data': {
+                    'content': 'I am Dijkstra'
+                }
+            },
+            {
+                'type': 'ai',
+                'data': {
+                    'content': 'Hello Dijkstra'
+                }
             }
-        },
-        {
-            'type': 'ai',
-            'data': {
-                'content': '你好啊！'
-            }
-        },
-        {
-            'type': 'human',
-            'data': {
-                'content': ''
-            }
-        },
-        {
-            'type': 'ai',
-            'data': {
-                'content': ''
-            }
+        ]
+        mock_data = {
+            "query": "Hello! What's my name?",
+            "history": history,
+            "with_memory": True
         }
-    ]
-    collection_name = "split"
-    output = search(query="”", model_name="OpenAI",
-                    with_memory=True, history=[], collection_name=collection_name)
-    print(output)
+        try:
+            response = self.client.post('/chat',
+                                        data=json.dumps(mock_data),
+                                        content_type='application/json')
+            self.assertEqual(200, response.status_code)
+            json_data = response.get_json()
+            self.assertIn('reply', json_data, 'Didn\'t get the reply message')
+            self.assertIn("Dijkstra", json_data["reply"], 'Expected Dijkstra in the response, but the response is {}'.format(json_data["reply"]))
+            print(json_data["reply"])
+        except AssertionError as e:
+            print("Test failed. Reason:", str(e))
+            raise
 
+    def test_empty_query(self):
 
-def upload_test():
-    return
+        mock_data = {
+            "with_memory": True
+        }
+        try:
+            response = self.client.post('/chat',
+                                        data=json.dumps(mock_data),
+                                        content_type='application/json')
 
+            self.assertEqual(response.status_code, 400)
+            json_data = response.get_json()
+            self.assertEqual(json_data['error'], 'Query must not be empty.')
+        except AssertionError as e:
+            print("Test failed. Reason:", str(e))
+            raise
 
-if __name__ == "__main__":
-    memory_chat_test()  # 调试chat_with_memory的过程
-    # search_test()
+    def test_invalid_model(self):
+
+        mock_data = {
+            "query": "Hello!",
+            "with_memory": False,
+            "model_name": "ChatGLM",
+        }
+        try:
+            response = self.client.post('/chat',
+                                        data=json.dumps(mock_data),
+                                        content_type='application/json')
+
+            self.assertEqual(response.status_code, 400)
+            json_data = response.get_json()
+            self.assertEqual(json_data['error'], 'Model does not exist.')
+        except AssertionError as e:
+            print("Test failed. Reason:", str(e))
+            raise
