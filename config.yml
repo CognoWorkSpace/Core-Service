@@ -1,15 +1,16 @@
 # General configuration
 model: 'OpenAI'
 database: 'milvus'
+splitter_name: "RecursiveCharacterTextSplitter"
 
 # PostgreSQL configuration
 pgvector:
   driver: 'psycopg2'
-  host: '172.28.30.52'
-  port: '5432'
-  database: 'testdb'
-  user: 'test'
-  password: 'test'
+  host: ''
+  port: ''
+  database: ''
+  user: ''
+  password: ''
 
 # Milvus configuration
 milvus:
@@ -24,3 +25,13 @@ openai:
   temperature: 0.7
   max_tokens: 1024
   buffer_top_k: 5
+
+# Splitter configuration
+splitter:
+  separator:
+    - "\n\n"
+    - "\n"
+    - " "
+  chunk_size: 1000,
+  chunk_overlap: 200,
+

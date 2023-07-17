@@ -1,14 +1,35 @@
-from flask import Flask, request, jsonify
+# -*- coding: utf-8 -*-
+# File : app.py
+# Author : Dijkstra Liu
+# Email : l.tingjun@wustl.edu
+#
+# 　　　    /＞ —— フ
+# 　　　　　| `_　 _ l
+# 　 　　　ノ  ミ＿xノ
+# 　　 　 /　　　 　|
+# 　　　 /　 ヽ　　ﾉ
+# 　 　 │　　|　|　\
+# 　／￣|　　 |　|　|
+#  | (￣ヽ＿_ヽ_)__)
+# 　＼_つ
+#
+# Description:
+# The file to start Flask server
 
+from flask import Flask, request, jsonify
 from modules.chains.chat import chat
 from modules.chains.search import search
 from modules.chains.upload import upload
 
+from util import init
+
 app = Flask(__name__)
 
 
-@app.route("/chat", methods=['POST'])
+@app.route("/chat", methods=['POST', 'GET'])
 def chat_view():
+    # TODO: GET拿到之前的聊天记录
+    # TODO: 更改错误记号，对应代码意义
     try:
         data = request.get_json()
         query = data.get('query')
@@ -18,7 +39,6 @@ def chat_view():
 
         if not query:
             return jsonify({'error': 'Query must not be empty.'}), 400
-
         response = chat(query, model_name, with_memory, history)
 
         return jsonify(response), 200
@@ -51,6 +71,7 @@ def upload_view():
 
 @app.route("/search", methods=['POST'])
 def search_view():
+    # TODO: Refine by Xinkai
     if request.method == "POST":
         try:
             data = request.get_json()
@@ -79,4 +100,5 @@ def search_view():
 
 
 if __name__ == '__main__':
+    init()
     app.run()

@@ -1,28 +1,41 @@
 import yaml
+class Config(dict):
+    def __init__(self, dicts):
+        super().__init__(dicts)
+
+    def __getitem__(self, key):
+        if key not in self:
+            raise Exception("key {} not in available_setting".format(key))
+        return super().__getitem__(key)
+
+    def __setitem__(self, key, value):
+        if key not in self:
+            raise Exception("key {} not in available_setting".format(key))
+        return super().__setitem__(key, value)
+
+    def get(self, key, default=None):
+        try:
+            return self[key]
+        except KeyError as e:
+            return e
+        except Exception as e:
+            raise e
+
+
+def transform_keys(data, parent_key=''):
+    new_data = {}
+    for k, v in data.items():
+        new_key = f'{parent_key}_{k}'.upper() if parent_key else k.upper()
+        if isinstance(v, dict):
+            new_data.update(transform_keys(v, new_key))
+        else:
+            new_data[new_key] = v
+    return new_data
+
 
 with open('config.yml', 'r') as f:
-    config = yaml.safe_load(f)
+    yaml_data = yaml.safe_load(f)
 
-# General configuration
-MODEL = config['model']
-DATABASE = config['database']
+config = Config(transform_keys(yaml_data))
 
-# PostgreSQL configuration
-PGVECTOR_DRIVER = config['pgvector']['driver']
-PGVECTOR_HOST = config['pgvector']['host']
-PGVECTOR_PORT = config['pgvector']['port']
-PGVECTOR_DATABASE = config['pgvector']['database']
-PGVECTOR_USER = config['pgvector']['user']
-PGVECTOR_PASSWORD = config['pgvector']['password']
-
-# Milvus configuration
-MILVUS_HOST = config['milvus']['host']
-MILVUS_PORT = config['milvus']['port']
-MILVUS_USER = config['milvus']['user']
-MILVUS_PASSWORD = config['milvus']['password']
-
-# OpenAI configuration
-OPENAI_MODEL_NAME = config['openai']['model_name']
-OPENAI_TEMPERATURE = config['openai']['temperature']
-OPENAI_MAX_TOKENS = config['openai']['max_tokens']
-BUFFER_TOP_K = config['openai']['buffer_top_k']
+print(config)
