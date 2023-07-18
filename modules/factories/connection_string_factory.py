@@ -1,6 +1,6 @@
 from langchain.vectorstores.pgvector import PGVector
 
-from util import conf
+from init import conf
 
 import const
 

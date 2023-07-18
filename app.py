@@ -20,13 +20,37 @@ from flask import Flask, request, jsonify
 from modules.chains.chat import chat
 from modules.chains.search import search
 from modules.chains.upload import upload
-
-from util import init
+from flasgger import Swagger, swag_from
+from init import init
 
 app = Flask(__name__)
+app.config['SWAGGER'] = {
+    'title': 'Core Service',
+    'uiversion': 2
+}
+Swagger(app,
+        template={
+            "swagger": "2.0",
+            "info": {
+                "title": "Core Service API",
+                "version": "1.0",
+            },
+            "servers": {
+                "url": "https://cogno/v1",
+            },
+            "consumes": [
+                "application/json",
+            ],
+            "produces": [
+                "application/json",
+            ],
+        },
+)
 
 
 @app.route("/chat", methods=['POST', 'GET'])
+@swag_from('doc/chat_post.yml', methods=['POST'])
+@swag_from('doc/chat_get.yml', methods=['GET'])
 def chat_view():
     # TODO: GET拿到之前的聊天记录
     # TODO: 更改错误记号，对应代码意义

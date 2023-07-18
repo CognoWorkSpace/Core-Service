@@ -1,0 +1,31 @@
+tags:
+  - falsk集成swagger示例
+description:
+    示例flasgger进行在线文档生成，添加用户信息，请求参数覆盖了常用的字符串、对象、数组、数字
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      id: 接口参数示例
+      properties:
+        userName:
+          type: string
+          description: user name
+        userInfo:
+            properties:
+              hobby:
+                type: array
+                items:
+                  type: string
+                description: user hobby
+              age:
+                type: integer
+                description: user age
+                required: true
+responses:
+  200:
+     description: 添加用户成功
+     example:
+  500:
+     description: 添加用户失败

@@ -4,7 +4,7 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain.schema import messages_from_dict, messages_to_dict
 
 import const
-from util import conf
+from init import conf
 from modules.factories.model_factory import create_model
 
 
