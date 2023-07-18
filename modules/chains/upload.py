@@ -1,6 +1,6 @@
 import os
 import const
-from util import conf
+from init import conf
 
 from langchain.document_loaders import PyPDFLoader
 from langchain.document_loaders import TextLoader

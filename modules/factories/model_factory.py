@@ -1,9 +1,8 @@
 import os
 
-from dotenv import load_dotenv
 from langchain.chat_models import ChatOpenAI
 
-from util import conf
+from init import conf
 import const
 
 

@@ -4,18 +4,18 @@ async-timeout==4.0.2
 attrs==23.1.0
 certifi==2023.5.7
 charset-normalizer==3.2.0
-click @ file:///C:/ci/click_1646056762388/work
-colorama @ file:///C:/b/abs_a9ozq0l032/croot/colorama_1672387194846/work
+click
+colorama
 dataclasses-json==0.5.9
-Flask @ file:///C:/b/abs_ef16l83sif/croot/flask_1671217367534/work
+Flask
 frozenlist==1.4.0
 greenlet==2.0.2
 idna==3.4
-itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
-Jinja2 @ file:///C:/b/abs_7cdis66kl9/croot/jinja2_1666908141852/work
+itsdangerous
+Jinja2
 langchain==0.0.232
 langsmith==0.0.5
-MarkupSafe @ file:///C:/ci/markupsafe_1654508036328/work
+MarkupSafe
 marshmallow==3.19.0
 marshmallow-enum==1.5.1
 multidict==6.0.4
@@ -37,5 +37,6 @@ tqdm==4.65.0
 typing-inspect==0.9.0
 typing_extensions==4.7.1
 urllib3==2.0.3
-Werkzeug @ file:///C:/b/abs_8578rs2ra_/croot/werkzeug_1679489759009/work
+Werkzeug
 yarl==1.9.2
+flasgger

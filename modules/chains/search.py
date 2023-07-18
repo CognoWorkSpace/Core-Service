@@ -3,8 +3,7 @@ from langchain.memory import ChatMessageHistory
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.schema import messages_from_dict, messages_to_dict
 
-import const
-from util import conf
+from init import conf
 from modules.factories.connection_string_factory import create_connection_string
 from modules.factories.database_factory import create_database
 from modules.factories.embedding_factory import create_embedding

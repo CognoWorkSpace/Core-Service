@@ -2,6 +2,7 @@
 model: 'OpenAI'
 database: 'milvus'
 splitter_name: "RecursiveCharacterTextSplitter"
+logging_path : ""
 
 # PostgreSQL configuration
 pgvector:

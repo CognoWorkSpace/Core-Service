@@ -1,9 +1,7 @@
-import os
-
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.text_splitter import TokenTextSplitter
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from util import conf
+from init import conf
 import const
 
 
