@@ -1,6 +1,6 @@
 import os
 import const
-from init import conf
+from config import conf
 
 from langchain.document_loaders import PyPDFLoader
 from langchain.document_loaders import TextLoader
@@ -45,12 +45,12 @@ def upload(file, collection_name):
         else:
             raise ValueError(f"Can't support {file_extension} type, I'm sorry.")
 
-        embeddings = create_embedding(conf().get(key="OPENAI", default=const.OPENAI))  # Creating embedding method
+        embeddings = create_embedding(conf.get(key="OPENAI", default=const.OPENAI))  # Creating embedding method
         connection_string = create_connection_string(
-            conf().get(key="MILVUS", default=const.MILVUS))  # Creating Milvus connection string
+            conf.get(key="MILVUS", default=const.MILVUS))  # Creating Milvus connection string
 
         # Creating Milvus Database
-        database = create_database(conf().get(key="DATABASE", default=const.MILVUS),
+        database = create_database(conf.get(key="DATABASE", default=const.MILVUS),
                                    collection_name=collection_name,
                                    connection_string=connection_string,
                                    embeddings=embeddings)

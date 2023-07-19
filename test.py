@@ -1,6 +1,6 @@
 import json
 import unittest
-
+from init import init
 from app import app
 
 
@@ -8,6 +8,8 @@ class ChatTestCases(unittest.TestCase):
 
     def setUp(self):
         self.app = app
+        init()
+        print()
         self.client = self.app.test_client()
 
     def test_single_chat(self):

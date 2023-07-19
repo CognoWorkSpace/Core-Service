@@ -4,13 +4,13 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain.schema import messages_from_dict, messages_to_dict
 
 import const
-from init import conf
+from config import conf
 from modules.factories.model_factory import create_model
 
 
 def chat(query, model_name, with_memory, history):
     if model_name is None:
-        model_name = conf().get(key="MODEL", default=const.OPENAI)
+        model_name = conf.get(key="MODEL", default=const.OPENAI)
     if with_memory is None:
         with_memory = False
     if history is None:
@@ -26,7 +26,7 @@ def chat(query, model_name, with_memory, history):
 
         # Create memory object that only keep 5 closest messages
         memory = ConversationBufferWindowMemory(
-            k=conf().get(key="OPENAI_BUFFER_TOP_K", default=3), chat_memory=chat_history)
+            k=conf.get(key="OPENAI_BUFFER_TOP_K", default=3), chat_memory=chat_history)
 
         # Create a Conversation Chain
         conversation = ConversationChain(

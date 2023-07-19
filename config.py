@@ -1,4 +1,6 @@
 import yaml
+
+
 class Config(dict):
     def __init__(self, dicts):
         super().__init__(dicts)
@@ -36,6 +38,4 @@ def transform_keys(data, parent_key=''):
 with open('config.yml', 'r') as f:
     yaml_data = yaml.safe_load(f)
 
-config = Config(transform_keys(yaml_data))
-
-print(config)
+conf = Config(transform_keys(yaml_data))

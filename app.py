@@ -16,12 +16,13 @@
 # Description:
 # The file to start Flask server
 
+from init import init
 from flask import Flask, request, jsonify
 from modules.chains.chat import chat
 from modules.chains.search import search
 from modules.chains.upload import upload
 from flasgger import Swagger, swag_from
-from init import init
+
 
 app = Flask(__name__)
 app.config['SWAGGER'] = {
