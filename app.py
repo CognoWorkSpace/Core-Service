@@ -17,11 +17,12 @@
 # The file to start Flask server
 
 from flask import Flask, request, jsonify
-from modules.chains.chat import chat
+from modules.chains.chat import chat, get_history
 from modules.chains.search import search
 from modules.chains.upload import upload
 from flasgger import Swagger, swag_from
 from init import init
+from utils.logging import LOGGER
 
 app = Flask(__name__)
 app.config['SWAGGER'] = {
@@ -45,30 +46,48 @@ Swagger(app,
                 "application/json",
             ],
         },
-)
+        )
 
 
 @app.route("/chat", methods=['POST', 'GET'])
 @swag_from('doc/chat_post.yml', methods=['POST'])
 @swag_from('doc/chat_get.yml', methods=['GET'])
 def chat_view():
-    # TODO: GET拿到之前的聊天记录
-    # TODO: 更改错误记号，对应代码意义
-    try:
-        data = request.get_json()
-        query = data.get('query')
-        model_name = data.get('model_name')
-        history = data.get('history')
-        with_memory = data.get('with_memory')
+    if request.method == 'POST':
+        try:
+            data = request.get_json()
+            query = data.get('query')
+            model_name = data.get('model_name')
+            history = data.get('history')
+            with_memory = data.get('with_memory')
 
-        if not query:
-            return jsonify({'error': 'Query must not be empty.'}), 400
-        response = chat(query, model_name, with_memory, history)
+            if not query:
+                LOGGER.error('Query must not be empty.')
+                return jsonify({'error': 'Query must not be empty.'}), 400
 
-        return jsonify(response), 200
+            LOGGER.info(
+                'Received chat request with query: {}, model_name: {}, with_memory: {}, history length: {}.'
+                .format(query, model_name, with_memory, 0 if history is None else len(history)))
+            response = chat(query, model_name, with_memory, history)
 
-    except Exception as e:
-        return jsonify({'error': str(e)}), 400
+            LOGGER.info('Generated chat response: {}.'.format(response))
+
+            return jsonify(response), 200
+        except ValueError as e:
+            LOGGER.error('Post content error occurred in chat_view_POST function: {}.'.format(e))
+            return jsonify(({'error': str(e)})), 400
+        except Exception as e:
+            LOGGER.error('An error occurred in chat_view_POST function: {}.'.format(e))
+            return jsonify({'error': str(e)}), 500
+
+    if request.method == 'GET':
+        try:
+            history = get_history()
+            LOGGER.info('Generated chat history: {}.'.format(history))
+            return jsonify({'history': history}), 200
+        except Exception as e:
+            LOGGER.error('An error occurred in chat_view_GET: {}.'.format(e))
+            return jsonify({'error': str(e)}), 500
 
 
 @app.route("/upload", methods=['POST'])

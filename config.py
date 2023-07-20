@@ -1,4 +1,6 @@
 import yaml
+
+
 class Config(dict):
     def __init__(self, dicts):
         super().__init__(dicts)

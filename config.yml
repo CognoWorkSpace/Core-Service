@@ -25,7 +25,7 @@ openai:
   model_name: 'gpt-3.5-turbo'
   temperature: 0.7
   max_tokens: 1024
-  buffer_top_k: 5
+  buffer_top_k: 10
 
 # Splitter configuration
 splitter:
