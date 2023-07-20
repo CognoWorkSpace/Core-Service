@@ -22,6 +22,7 @@ from modules.chains.search import search
 from modules.chains.upload import upload
 from flasgger import Swagger, swag_from
 from init import init
+from utils.logging import LOGGER
 
 app = Flask(__name__)
 app.config['SWAGGER'] = {
@@ -47,13 +48,10 @@ Swagger(app,
         },
 )
 
-
 @app.route("/chat", methods=['POST', 'GET'])
 @swag_from('doc/chat_post.yml', methods=['POST'])
 @swag_from('doc/chat_get.yml', methods=['GET'])
 def chat_view():
-    # TODO: GET拿到之前的聊天记录
-    # TODO: 更改错误记号，对应代码意义
     try:
         data = request.get_json()
         query = data.get('query')
@@ -62,13 +60,25 @@ def chat_view():
         with_memory = data.get('with_memory')
 
         if not query:
+            LOGGER.error('Query must not be empty.')
             return jsonify({'error': 'Query must not be empty.'}), 400
+
+        LOGGER.info(
+            'Received chat request with query: {}, model_name: {}, with_memory: {}, history length: {}.'.format(query,
+                                                                                                                model_name,
+                                                                                                                with_memory,
+                                                                                                                0 if history is None else len(history)))
+
         response = chat(query, model_name, with_memory, history)
 
-        return jsonify(response), 200
+        LOGGER.info('Generated chat response: {}.'.format(response))
 
+        return jsonify(response), 200
+    except ValueError as e:
+        return jsonify(({'error': str(e)})), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
+        LOGGER.error('An error occurred in chat_view function: {}.'.format(e))
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route("/upload", methods=['POST'])

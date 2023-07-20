@@ -1,0 +1,240 @@
+2023-07-20 09:20:29,370 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:20:29,371 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:20:30,682 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:20:56,043 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:20:56,044 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:20:57,400 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:21:11,809 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:21:11,829 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:21:11,830 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:21:13,479 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:22:57,819 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:22:57,822 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:22:57,823 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:22:59,076 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:24:16,461 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:24:16,464 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:24:16,465 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:24:17,831 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:26:22,900 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:26:22,903 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:26:22,903 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:26:24,125 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:26:37,792 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:26:37,796 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 09:26:37,797 - INFO - chat.py - chat - 15 - User Message: Hello! What's my name?
+2023-07-20 09:26:38,997 - INFO - chat.py - chat - 15 - User Message: Hello!
+2023-07-20 10:05:20,546 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:05:20,547 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:05:20,547 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:05:20,547 - ERROR - chat.py - chat - 32 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:05:20,551 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:05:20,553 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:05:20,553 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:05:20,553 - INFO - chat.py - chat - 38 - Chat history converted.
+2023-07-20 10:05:20,553 - INFO - chat.py - chat - 44 - Memory object created.
+2023-07-20 10:05:20,583 - INFO - chat.py - chat - 53 - Conversation Chain created.
+2023-07-20 10:05:21,926 - INFO - chat.py - chat - 58 - Reply generated: Your name is Dijkstra.
+2023-07-20 10:05:21,926 - INFO - chat.py - chat - 64 - Chat function ends.
+2023-07-20 10:05:21,926 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Your name is Dijkstra.', 'history': [{'type': 'human', 'data': {'content': 'hi!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'whats up?', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': 'I am Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': "Hello! What's my name?", 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Your name is Dijkstra.', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:05:21,927 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:06:59,699 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:06:59,700 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:06:59,701 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:06:59,701 - ERROR - chat.py - chat - 32 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:06:59,701 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:06:59,704 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:06:59,704 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:06:59,704 - INFO - chat.py - chat - 38 - Chat history converted.
+2023-07-20 10:06:59,705 - INFO - chat.py - chat - 44 - Memory object created.
+2023-07-20 10:06:59,736 - INFO - chat.py - chat - 53 - Conversation Chain created.
+2023-07-20 10:07:00,953 - INFO - chat.py - chat - 58 - Reply generated: Your name is Dijkstra.
+2023-07-20 10:07:00,953 - INFO - chat.py - chat - 64 - Chat function ends.
+2023-07-20 10:07:00,954 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Your name is Dijkstra.', 'history': [{'type': 'human', 'data': {'content': 'hi!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'whats up?', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': 'I am Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': "Hello! What's my name?", 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Your name is Dijkstra.', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:07:00,955 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:09:15,736 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:09:15,738 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:09:15,738 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:09:15,738 - ERROR - chat.py - chat - 32 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:09:15,739 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:09:15,742 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:09:15,742 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:09:15,742 - INFO - chat.py - chat - 38 - Chat history converted.
+2023-07-20 10:09:15,742 - INFO - chat.py - chat - 44 - Memory object created.
+2023-07-20 10:09:15,773 - INFO - chat.py - chat - 53 - Conversation Chain created.
+2023-07-20 10:09:16,018 - WARNING - connectionpool.py - urlopen - 871 - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')': /v1/chat/completions
+2023-07-20 10:09:16,204 - WARNING - before_sleep.py - log_it - 65 - Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 1.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None)).
+2023-07-20 10:09:17,413 - WARNING - before_sleep.py - log_it - 65 - Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 2.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None)).
+2023-07-20 10:09:19,622 - WARNING - before_sleep.py - log_it - 65 - Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 4.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None)).
+2023-07-20 10:09:23,844 - WARNING - before_sleep.py - log_it - 65 - Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 8.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None)).
+2023-07-20 10:09:35,561 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:09:35,563 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:09:35,563 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:09:35,563 - ERROR - chat.py - chat - 32 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:09:35,564 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:09:35,567 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:09:35,567 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:09:35,567 - INFO - chat.py - chat - 38 - Chat history converted.
+2023-07-20 10:09:35,567 - INFO - chat.py - chat - 44 - Memory object created.
+2023-07-20 10:09:35,600 - INFO - chat.py - chat - 53 - Conversation Chain created.
+2023-07-20 10:09:35,990 - WARNING - connectionpool.py - urlopen - 871 - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')': /v1/chat/completions
+2023-07-20 10:09:36,191 - WARNING - before_sleep.py - log_it - 65 - Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 1.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None)).
+2023-07-20 10:09:37,407 - WARNING - before_sleep.py - log_it - 65 - Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 2.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None)).
+2023-07-20 10:09:39,624 - WARNING - before_sleep.py - log_it - 65 - Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 4.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None)).
+2023-07-20 10:09:43,816 - WARNING - before_sleep.py - log_it - 65 - Retrying langchain.chat_models.openai.ChatOpenAI.completion_with_retry.<locals>._completion_with_retry in 8.0 seconds as it raised APIConnectionError: Error communicating with OpenAI: ('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None)).
+2023-07-20 10:09:58,003 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:09:58,005 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:09:58,005 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:09:58,005 - ERROR - chat.py - chat - 32 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:09:58,006 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:09:58,009 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:09:58,009 - INFO - chat.py - chat - 14 - Chat function starts with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:09:58,009 - INFO - chat.py - chat - 38 - Chat history converted.
+2023-07-20 10:09:58,009 - INFO - chat.py - chat - 44 - Memory object created.
+2023-07-20 10:09:58,040 - INFO - chat.py - chat - 53 - Conversation Chain created.
+2023-07-20 10:09:59,414 - INFO - chat.py - chat - 58 - Reply generated: Your name is Dijkstra.
+2023-07-20 10:09:59,414 - INFO - chat.py - chat - 64 - Chat function ends.
+2023-07-20 10:09:59,414 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Your name is Dijkstra.', 'history': [{'type': 'human', 'data': {'content': 'hi!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'whats up?', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': 'I am Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': "Hello! What's my name?", 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Your name is Dijkstra.', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:09:59,415 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:12:30,088 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:12:50,478 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:15:58,835 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:17:03,853 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:17:25,469 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:17:54,261 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:19:21,657 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:19:37,831 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:19:51,177 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:20:11,322 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:33:03,676 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:33:41,877 - ERROR - app.py - chat_view - 80 - An error occurred in chat_view function: object of type 'NoneType' has no len().
+2023-07-20 10:35:32,423 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: False, history length: 0.
+2023-07-20 10:35:32,424 - INFO - chat.py - chat - 43 - Chat history converted.
+2023-07-20 10:35:32,424 - INFO - chat.py - chat - 49 - Memory object created.
+2023-07-20 10:35:32,456 - INFO - chat.py - chat - 58 - Conversation Chain created.
+2023-07-20 10:35:33,899 - INFO - chat.py - chat - 63 - Reply generated: Hello! How can I assist you today?
+2023-07-20 10:35:33,899 - INFO - chat.py - chat - 69 - Chat function ends.
+2023-07-20 10:35:33,899 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Hello! How can I assist you today?', 'history': [{'type': 'human', 'data': {'content': 'Hello!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello! How can I assist you today?', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:36:45,039 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:36:45,041 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:36:45,041 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: True, history length: 2.
+2023-07-20 10:36:45,041 - ERROR - chat.py - chat - 35 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:36:45,042 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: ChatGLM, with_memory: False, history length: 0.
+2023-07-20 10:36:45,042 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: ChatGLM, with_memory: False, history length: 0.
+2023-07-20 10:36:45,043 - INFO - chat.py - chat - 41 - Chat history converted.
+2023-07-20 10:36:45,043 - INFO - chat.py - chat - 47 - Memory object created.
+2023-07-20 10:36:45,043 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:36:45,043 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello! What's my name?, model_name: OpenAI, with_memory: True, history length: 4.
+2023-07-20 10:36:45,044 - INFO - chat.py - chat - 41 - Chat history converted.
+2023-07-20 10:36:45,044 - INFO - chat.py - chat - 47 - Memory object created.
+2023-07-20 10:36:45,075 - INFO - chat.py - chat - 56 - Conversation Chain created.
+2023-07-20 10:36:46,429 - INFO - chat.py - chat - 61 - Reply generated: Your name is Dijkstra.
+2023-07-20 10:36:46,430 - INFO - chat.py - chat - 67 - Chat function ends.
+2023-07-20 10:36:46,430 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Your name is Dijkstra.', 'history': [{'type': 'human', 'data': {'content': 'hi!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'whats up?', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': 'I am Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': "Hello! What's my name?", 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Your name is Dijkstra.', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:36:46,431 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: False, history length: 0.
+2023-07-20 10:36:46,431 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: False, history length: 0.
+2023-07-20 10:36:46,431 - INFO - chat.py - chat - 41 - Chat history converted.
+2023-07-20 10:36:46,431 - INFO - chat.py - chat - 47 - Memory object created.
+2023-07-20 10:36:46,431 - INFO - chat.py - chat - 56 - Conversation Chain created.
+2023-07-20 10:36:47,477 - INFO - chat.py - chat - 61 - Reply generated: Hello! How can I assist you today?
+2023-07-20 10:36:47,477 - INFO - chat.py - chat - 67 - Chat function ends.
+2023-07-20 10:36:47,477 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Hello! How can I assist you today?', 'history': [{'type': 'human', 'data': {'content': 'Hello!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello! How can I assist you today?', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:44:05,759 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:44:05,761 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:44:05,761 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: True, history length: 2.
+2023-07-20 10:44:05,761 - ERROR - chat.py - chat - 32 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:44:05,762 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: ChatGLM, with_memory: False, history length: 0.
+2023-07-20 10:44:05,762 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: ChatGLM, with_memory: False, history length: 0.
+2023-07-20 10:44:05,762 - INFO - chat.py - chat - 38 - Chat history converted.
+2023-07-20 10:44:05,762 - INFO - chat.py - chat - 44 - Memory object created.
+2023-07-20 10:44:05,764 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:44:05,764 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello! What's my name?, model_name: OpenAI, with_memory: True, history length: 4.
+2023-07-20 10:44:05,764 - INFO - chat.py - chat - 38 - Chat history converted.
+2023-07-20 10:44:05,764 - INFO - chat.py - chat - 44 - Memory object created.
+2023-07-20 10:44:05,796 - INFO - chat.py - chat - 53 - Conversation Chain created.
+2023-07-20 10:44:08,209 - INFO - chat.py - chat - 58 - Reply generated: Your name is Dijkstra.
+2023-07-20 10:44:08,209 - INFO - chat.py - chat - 64 - Chat function ends.
+2023-07-20 10:44:08,209 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Your name is Dijkstra.', 'history': [{'type': 'human', 'data': {'content': 'hi!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'whats up?', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': 'I am Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': "Hello! What's my name?", 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Your name is Dijkstra.', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:44:08,211 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: False, history length: 0.
+2023-07-20 10:44:08,211 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: False, history length: 0.
+2023-07-20 10:44:08,211 - INFO - chat.py - chat - 38 - Chat history converted.
+2023-07-20 10:44:08,211 - INFO - chat.py - chat - 44 - Memory object created.
+2023-07-20 10:44:08,211 - INFO - chat.py - chat - 53 - Conversation Chain created.
+2023-07-20 10:44:09,170 - INFO - chat.py - chat - 58 - Reply generated: Hello! How can I assist you today?
+2023-07-20 10:44:09,171 - INFO - chat.py - chat - 64 - Chat function ends.
+2023-07-20 10:44:09,171 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Hello! How can I assist you today?', 'history': [{'type': 'human', 'data': {'content': 'Hello!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello! How can I assist you today?', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:47:16,806 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:47:16,808 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:47:16,808 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: True, history length: 2.
+2023-07-20 10:47:16,808 - ERROR - chat.py - chat - 32 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:47:16,809 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: Dijkstra, with_memory: False, history length: 0.
+2023-07-20 10:47:16,809 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: Dijkstra, with_memory: False, history length: 0.
+2023-07-20 10:47:16,809 - INFO - chat.py - chat - 37 - Chat history converted.
+2023-07-20 10:47:16,809 - INFO - chat.py - chat - 43 - Memory object created.
+2023-07-20 10:47:16,810 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:47:16,810 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello! What's my name?, model_name: OpenAI, with_memory: True, history length: 4.
+2023-07-20 10:47:16,810 - INFO - chat.py - chat - 37 - Chat history converted.
+2023-07-20 10:47:16,810 - INFO - chat.py - chat - 43 - Memory object created.
+2023-07-20 10:47:16,839 - INFO - chat.py - chat - 52 - Conversation Chain created.
+2023-07-20 10:47:19,236 - INFO - chat.py - chat - 57 - Reply generated: Your name is Dijkstra.
+2023-07-20 10:47:19,236 - INFO - chat.py - chat - 63 - Chat function ends.
+2023-07-20 10:47:19,236 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Your name is Dijkstra.', 'history': [{'type': 'human', 'data': {'content': 'hi!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'whats up?', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': 'I am Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': "Hello! What's my name?", 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Your name is Dijkstra.', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:47:19,237 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: False, history length: 0.
+2023-07-20 10:47:19,237 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: False, history length: 0.
+2023-07-20 10:47:19,237 - INFO - chat.py - chat - 37 - Chat history converted.
+2023-07-20 10:47:19,237 - INFO - chat.py - chat - 43 - Memory object created.
+2023-07-20 10:47:19,237 - INFO - chat.py - chat - 52 - Conversation Chain created.
+2023-07-20 10:47:20,090 - INFO - chat.py - chat - 57 - Reply generated: Hello! How can I assist you today?
+2023-07-20 10:47:20,091 - INFO - chat.py - chat - 63 - Chat function ends.
+2023-07-20 10:47:20,091 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Hello! How can I assist you today?', 'history': [{'type': 'human', 'data': {'content': 'Hello!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello! How can I assist you today?', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:48:39,596 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:48:39,598 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:48:39,598 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: True, history length: 2.
+2023-07-20 10:48:39,598 - ERROR - chat.py - chat - 32 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:48:39,599 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: Dijkstra, with_memory: False, history length: 0.
+2023-07-20 10:48:39,599 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: Dijkstra, with_memory: False, history length: 0.
+2023-07-20 10:48:39,599 - INFO - chat.py - chat - 37 - Chat history converted.
+2023-07-20 10:48:39,599 - INFO - chat.py - chat - 43 - Memory object created.
+2023-07-20 10:48:39,600 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:48:39,600 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello! What's my name?, model_name: OpenAI, with_memory: True, history length: 4.
+2023-07-20 10:48:39,600 - INFO - chat.py - chat - 37 - Chat history converted.
+2023-07-20 10:48:39,600 - INFO - chat.py - chat - 43 - Memory object created.
+2023-07-20 10:48:39,634 - INFO - chat.py - chat - 52 - Conversation Chain created.
+2023-07-20 10:48:40,870 - INFO - chat.py - chat - 57 - Reply generated: Your name is Dijkstra.
+2023-07-20 10:48:40,870 - INFO - chat.py - chat - 63 - Chat function ends.
+2023-07-20 10:48:40,870 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Your name is Dijkstra.', 'history': [{'type': 'human', 'data': {'content': 'hi!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'whats up?', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': 'I am Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': "Hello! What's my name?", 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Your name is Dijkstra.', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:48:40,871 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: False, history length: 0.
+2023-07-20 10:48:40,871 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: False, history length: 0.
+2023-07-20 10:48:40,871 - INFO - chat.py - chat - 37 - Chat history converted.
+2023-07-20 10:48:40,871 - INFO - chat.py - chat - 43 - Memory object created.
+2023-07-20 10:48:40,872 - INFO - chat.py - chat - 52 - Conversation Chain created.
+2023-07-20 10:48:41,787 - INFO - chat.py - chat - 57 - Reply generated: Hello! How can I assist you today?
+2023-07-20 10:48:41,788 - INFO - chat.py - chat - 63 - Chat function ends.
+2023-07-20 10:48:41,789 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Hello! How can I assist you today?', 'history': [{'type': 'human', 'data': {'content': 'Hello!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello! How can I assist you today?', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:51:19,295 - ERROR - app.py - chat_view - 63 - Query must not be empty.
+2023-07-20 10:51:19,297 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: True, history length: 2.
+2023-07-20 10:51:19,297 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: True, history length: 2.
+2023-07-20 10:51:19,297 - ERROR - chat.py - chat - 32 - User provided an invalid chat history: Got unexpected message type: Dijkstra
+2023-07-20 10:51:19,298 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: Dijkstra, with_memory: False, history length: 0.
+2023-07-20 10:51:19,298 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: Dijkstra, with_memory: False, history length: 0.
+2023-07-20 10:51:19,298 - INFO - chat.py - chat - 37 - Chat history converted.
+2023-07-20 10:51:19,298 - INFO - chat.py - chat - 43 - Memory object created.
+2023-07-20 10:51:19,298 - ERROR - model_factory.py - create_model - 31 - User used an invalid model: Dijkstra
+2023-07-20 10:51:19,299 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello! What's my name?, model_name: None, with_memory: True, history length: 4.
+2023-07-20 10:51:19,299 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello! What's my name?, model_name: OpenAI, with_memory: True, history length: 4.
+2023-07-20 10:51:19,299 - INFO - chat.py - chat - 37 - Chat history converted.
+2023-07-20 10:51:19,299 - INFO - chat.py - chat - 43 - Memory object created.
+2023-07-20 10:51:19,299 - INFO - model_factory.py - create_model - 27 - Model OpenAI is created
+2023-07-20 10:51:19,330 - INFO - chat.py - chat - 52 - Conversation Chain created.
+2023-07-20 10:51:20,585 - INFO - chat.py - chat - 57 - Reply generated: Your name is Dijkstra.
+2023-07-20 10:51:20,585 - INFO - chat.py - chat - 63 - Chat function ends.
+2023-07-20 10:51:20,585 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Your name is Dijkstra.', 'history': [{'type': 'human', 'data': {'content': 'hi!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'whats up?', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': 'I am Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello Dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'human', 'data': {'content': "Hello! What's my name?", 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Your name is Dijkstra.', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-20 10:51:20,587 - INFO - app.py - chat_view - 66 - Received chat request with query: Hello!, model_name: None, with_memory: False, history length: 0.
+2023-07-20 10:51:20,587 - INFO - chat.py - chat - 21 - Chat function starts with query: Hello!, model_name: OpenAI, with_memory: False, history length: 0.
+2023-07-20 10:51:20,587 - INFO - chat.py - chat - 37 - Chat history converted.
+2023-07-20 10:51:20,587 - INFO - chat.py - chat - 43 - Memory object created.
+2023-07-20 10:51:20,587 - INFO - model_factory.py - create_model - 27 - Model OpenAI is created
+2023-07-20 10:51:20,587 - INFO - chat.py - chat - 52 - Conversation Chain created.
+2023-07-20 10:51:21,458 - INFO - chat.py - chat - 57 - Reply generated: Hello! How can I assist you today?
+2023-07-20 10:51:21,459 - INFO - chat.py - chat - 63 - Chat function ends.
+2023-07-20 10:51:21,459 - INFO - app.py - chat_view - 74 - Generated chat response: {'reply': 'Hello! How can I assist you today?', 'history': [{'type': 'human', 'data': {'content': 'Hello!', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello! How can I assist you today?', 'additional_kwargs': {}, 'example': False}}]}.
