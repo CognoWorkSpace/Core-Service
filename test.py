@@ -133,7 +133,8 @@ class ChatTestCases(unittest.TestCase):
                                         content_type='application/json')
             self.assertEqual(400, response.status_code)
             json_data = response.get_json()
-            self.assertIn('Please check the format of history message you post', json_data["error"], 'Didn\'t get the reply message')
+            self.assertIn('Please check the format of history message you post', json_data["error"],
+                          'Didn\'t get the reply message')
         except AssertionError as e:
             print("Test failed. Reason:", str(e))
             raise
@@ -152,6 +153,21 @@ class ChatTestCases(unittest.TestCase):
             json_data = response.get_json()
             self.assertIn('Model {} does not exist.'.format(mock_data["model_name"]), json_data["error"],
                           'Didn\'t get the error message')
+        except AssertionError as e:
+            print("Test failed. Reason:", str(e))
+            raise
+
+    def test_chat_get(self):
+        mock_data = {
+            "query": "Hello!",
+            "with_memory": False
+        }
+        try:
+            self.client.post('/chat',
+                             data=json.dumps(mock_data),
+                             content_type='application/json')
+            response = self.client.get('/chat')
+            self.assertEqual(200, response.status_code)
         except AssertionError as e:
             print("Test failed. Reason:", str(e))
             raise

@@ -1,31 +1,63 @@
 tags:
-  - falsk集成swagger示例
-description:
-    示例flasgger进行在线文档生成，添加用户信息，请求参数覆盖了常用的字符串、对象、数组、数字
+  - Chat API
+description: 通过POST请求，使用特定的模型生成聊天响应。
 parameters:
   - name: body
     in: body
     required: true
     schema:
-      id: 接口参数示例
+      id: chat_post_body
       properties:
-        userName:
+        query:
           type: string
-          description: user name
-        userInfo:
+          required: true
+          description: 聊天请求的文本内容
+        model_name:
+          type: string
+          required: false
+          description: 用于生成聊天响应的模型的名称，可以为空
+        history:
+          type: array
+          items:
+            type: object
             properties:
-              hobby:
-                type: array
-                items:
-                  type: string
-                description: user hobby
-              age:
-                type: integer
-                description: user age
-                required: true
+              type:
+                type: string
+                description: 发送者类型，可以是"human"或"ai"
+              data:
+                type: object
+                properties:
+                  content:
+                    type: string
+                    description: 发送的消息内容
+          required: false
+          description: 聊天历史记录，可以为空
+        with_memory:
+          type: boolean
+          required: true
+          description: 是否需要记忆功能，用于聊天上下文
 responses:
   200:
-     description: 添加用户成功
-     example:
+    description: 成功生成聊天响应
+    schema:
+      id: chat_post_response
+      properties:
+        response:
+          type: string
+          description: 生成的聊天响应
+  400:
+    description: 请求失败，可能由于查询语句为空，或其他请求参数问题
+    schema:
+      id: chat_post_error
+      properties:
+        error:
+          type: string
+          description: 错误信息
   500:
-     description: 添加用户失败
+    description: 服务器错误
+    schema:
+      id: chat_post_server_error
+      properties:
+        error:
+          type: string
+          description: 错误信息

@@ -1,30 +1,32 @@
 tags:
-  - falsk example
-description:
-    示例flasgger进行在线文档生成，添加用户信息，请求参数覆盖了常用的字符串、对象、数组、数字
-parameters:
-  - name: body
-    in: body
-    required: true
-    schema:
-      id: 接口参数示例
-      properties:
-        userName:
-          type: string
-          description: 用户自己的姓名
-        userInfo:
-            properties:
-              hobby:
-                type: array
-                items:
-                  type: string
-                description: 用户的爱好
-              age:
-                type: integer
-                description: 用户年龄
+  - Chat API
+description: 通过GET请求获取聊天历史记录。
 responses:
   200:
-     description: 添加用户成功
-     example:
+    description: 成功获取聊天历史记录
+    schema:
+      id: chat_get_response
+      properties:
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: 发送者类型，可以是"human"或"ai"
+              data:
+                type: object
+                properties:
+                  content:
+                    type: string
+                    description: 发送的消息内容
+          description: 聊天历史记录
   500:
-     description: 添加用户失败
+    description: 服务器错误
+    schema:
+      id: chat_get_server_error
+      properties:
+        error:
+          type: string
+          description: 错误信息

@@ -9,6 +9,9 @@ from modules.factories.model_factory import create_model
 
 from utils.logging import LOGGER
 
+# TODO: try to connect to MYSQL to acquire history message based on database. The test implementation is let all the user share one common history message.
+chat_history = ChatMessageHistory()  # Change the memory location to save all message from users
+
 
 def chat(query, model_name, with_memory, history):
     if model_name is None:
@@ -25,7 +28,6 @@ def chat(query, model_name, with_memory, history):
                                                                                                            len(history)))
     try:
         # Convert dicts to message object
-        chat_history = ChatMessageHistory()
         try:
             messages = messages_from_dict(history)
         except Exception as e:
@@ -38,8 +40,7 @@ def chat(query, model_name, with_memory, history):
 
         # Create memory object that only keep 5 closest messages
         memory = ConversationBufferWindowMemory(
-            k=conf().get(key="OPENAI_BUFFER_TOP_K", default=5), chat_memory=chat_history)
-
+            k=conf().get(key="OPENAI_BUFFER_TOP_K", default=5) if with_memory else 0, chat_memory=chat_history)
         LOGGER.info("Memory object created.")
 
         # Create a Conversation Chain
@@ -58,8 +59,6 @@ def chat(query, model_name, with_memory, history):
 
         history = messages_to_dict(chat_history.messages)
 
-        chat_history.clear()
-
         LOGGER.info("Chat function ends.")
 
         return {"reply": reply, "history": history}
@@ -69,3 +68,6 @@ def chat(query, model_name, with_memory, history):
         LOGGER.error("An unexpected error occurred in chat function: {}".format(e))
         raise Exception(e)
 
+
+def get_history():
+    return messages_to_dict(chat_history.messages)
