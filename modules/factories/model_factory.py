@@ -2,27 +2,28 @@ import os
 
 from langchain.chat_models import ChatOpenAI
 
-from init import conf
+
 import const
 
 from utils.logging import LOGGER
 
 # create a LLM model, GPT is the default model
+from flask import current_app
 
 
-def create_model(model_name=conf().get(key="MODEL", default=const.OPENAI), **kwargs):
+def create_model(model_name="", **kwargs):
 
     if 'openai_model_name' not in kwargs:
-        kwargs['openai_model_name'] = conf().get(key="OPENAI_MODEL_NAME", default="gpt-3.5-turbo")
+        kwargs['openai_model_name'] = current_app.config.get("OPENAI_MODEL_NAME", "gpt-3.5-turbo")
 
     if 'openai_api_key' not in kwargs:
         kwargs['openai_api_key'] = os.getenv("OPENAI_API_KEY")
 
     if 'max_tokens' not in kwargs:
-        kwargs['max_tokens'] = conf().get(key="OPENAI_MAX_TOKENS", default=1024)
+        kwargs['max_tokens'] = current_app.config.get("OPENAI_MAX_TOKENS", 1024)
 
     if 'temperature' not in kwargs:
-        kwargs['temperature'] = conf().get(key="OPENAI_TEMPERATURE", default=0.7)
+        kwargs['temperature'] = current_app.config.get("OPENAI_TEMPERATURE", 0.7)
     if model_name == const.OPENAI:
         LOGGER.info("Model {} is created".format(model_name))
         return ChatOpenAI(model_name=kwargs['openai_model_name'], openai_api_key=kwargs['openai_api_key'],

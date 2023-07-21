@@ -4,7 +4,7 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain.schema import messages_from_dict, messages_to_dict
 
 import const
-from init import conf
+from flask import current_app
 from modules.factories.model_factory import create_model
 
 from utils.logging import LOGGER
@@ -15,7 +15,7 @@ chat_history = ChatMessageHistory()  # Change the memory location to save all me
 
 def chat(query, model_name, with_memory, history):
     if model_name is None:
-        model_name = conf().get(key="MODEL", default=const.OPENAI)
+        model_name = current_app.config.get("MODEL", const.OPENAI)
     if with_memory is None:
         with_memory = False
     if history is None:
@@ -40,7 +40,7 @@ def chat(query, model_name, with_memory, history):
 
         # Create memory object that only keep 5 closest messages
         memory = ConversationBufferWindowMemory(
-            k=conf().get(key="OPENAI_BUFFER_TOP_K", default=5) if with_memory else 0, chat_memory=chat_history)
+            k=current_app.config.get("OPENAI_BUFFER_TOP_K", 5) if with_memory else 0, chat_memory=chat_history)
         LOGGER.info("Memory object created.")
 
         # Create a Conversation Chain
