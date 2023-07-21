@@ -3,7 +3,7 @@ from langchain.memory import ChatMessageHistory
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.schema import messages_from_dict, messages_to_dict
 
-from init import conf
+from flask import current_app
 from modules.factories.connection_string_factory import create_connection_string
 from modules.factories.database_factory import create_database
 from modules.factories.embedding_factory import create_embedding
@@ -13,7 +13,7 @@ import const
 
 def search(query, model_name, with_memory, history, collection_name):
     if model_name is None:
-        model_name = conf().get(key="MODEL", default=const.OPENAI)
+        model_name = current_app.config.get("MODEL", const.OPENAI)
     if with_memory is None:
         with_memory = False
     if history is None:
@@ -22,11 +22,11 @@ def search(query, model_name, with_memory, history, collection_name):
     try:
 
         # Creating Database connection string
-        connection_string = create_connection_string(database_name=conf().get(key="DATABASE", default=const.MILVUS))
+        connection_string = create_connection_string(database_name=current_app.config.get("DATABASE", const.MILVUS))
         # Creating embedding method
         embeddings = create_embedding()
         # Creating Database
-        database = create_database(database_name=conf().get(key="DATABASE", default=const.MILVUS),
+        database = create_database(database_name=current_app.config.get("DATABASE", const.MILVUS),
                                    collection_name=collection_name,
                                    connection_string=connection_string, embeddings=embeddings)
 
