@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from flaskr.app import create_app
+from flask_app.app import create_app
 
 
 class ChatTestCases(unittest.TestCase):
