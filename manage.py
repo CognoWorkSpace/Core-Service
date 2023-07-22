@@ -17,7 +17,7 @@
 # Description: Creat an app and run it.
 #
 
-from flaskr.app import create_app
+from flask_app.app import create_app
 
 if __name__ == 'main':
     app = create_app()

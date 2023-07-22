@@ -5,4 +5,4 @@
 /venv
 /.idea
 /.vscode
-*/test.log
+.log
