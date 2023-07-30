@@ -1,0 +1,15 @@
+2023-07-31 04:22:56,786 - INFO - _internal.py - _log - 187 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.21.0.2:5000
+2023-07-31 04:22:56,786 - INFO - _internal.py - _log - 187 - [33mPress CTRL+C to quit[0m
+2023-07-31 04:23:42,107 - INFO - app.py - chat_view - 76 - Received chat request with query: i am dijkstra, model_name: None, with_memory: True, history length: 0.
+2023-07-31 04:23:42,108 - INFO - chat.py - chat - 24 - Chat function starts with query: i am dijkstra, model_name: OpenAI, with_memory: True, history length: 0.
+2023-07-31 04:23:42,108 - INFO - chat.py - chat - 39 - Chat history converted.
+2023-07-31 04:23:42,108 - INFO - chat.py - chat - 44 - Memory object created.
+2023-07-31 04:23:42,108 - INFO - model_factory.py - create_model - 28 - Model OpenAI is created
+2023-07-31 04:23:42,180 - INFO - chat.py - chat - 53 - Conversation Chain created.
+2023-07-31 04:23:43,974 - INFO - chat.py - chat - 58 - Reply generated: Hello Dijkstra! How can I assist you today?
+2023-07-31 04:23:43,975 - INFO - chat.py - chat - 62 - Chat function ends.
+2023-07-31 04:23:43,975 - INFO - app.py - chat_view - 81 - Generated chat response: {'reply': 'Hello Dijkstra! How can I assist you today?', 'history': [{'type': 'human', 'data': {'content': 'i am dijkstra', 'additional_kwargs': {}, 'example': False}}, {'type': 'ai', 'data': {'content': 'Hello Dijkstra! How can I assist you today?', 'additional_kwargs': {}, 'example': False}}]}.
+2023-07-31 04:23:43,976 - INFO - _internal.py - _log - 187 - 172.21.0.1 - - [31/Jul/2023 04:23:43] "POST /chat HTTP/1.1" 200 -

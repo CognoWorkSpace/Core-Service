@@ -18,7 +18,8 @@
 #
 
 from flask_app.app import create_app
+import os
 
 if __name__ == 'main':
-    app = create_app()
-    app.run()
+    app = create_app(os.getenv("FLASK_ENV"))
+    app.run(host=os.getenv("FLASK_RUN_HOST"))
