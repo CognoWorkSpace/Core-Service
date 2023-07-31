@@ -16,15 +16,20 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
+# Create a log directory
+RUN mkdir /var/log/Core-Service
+
+# Set environment variable for the log directory
+ENV LOG_PATH /var/log/Core-Service
+
 # Copy all the files from the current directory to the container
 COPY . .
+
+# Create a data volume
+VOLUME ["/app/data", "/var/log/Core-Service"]
 
 # Expose port 5000 for the Flask app
 EXPOSE 5000
 
-# Set environment variables
-ENV FLASK_APP=manage.py
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_ENV=development
 # Start the Flask application
 CMD ["flask", "run"]

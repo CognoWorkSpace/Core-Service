@@ -2,7 +2,6 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ChatMessageHistory
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.schema import messages_from_dict, messages_to_dict
-
 from flask import current_app
 from modules.factories.connection_string_factory import create_connection_string
 from modules.factories.database_factory import create_database
