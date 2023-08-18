@@ -6,7 +6,7 @@ from pymilvus import connections, db, FieldSchema, CollectionSchema, DataType, C
 # from towhee import ops, pipe, DataCollection
 from typing import List, Union, Iterable, Optional
 
-from varcharLength import VarcharLength
+from databaseMod.varcharLength import VarcharLength
 
 
 class MilvusDB:
@@ -117,9 +117,6 @@ class MilvusDB:
             'params': {"nlist": 2048}
         }
         self.collection.create_index(field_name=self.vector_field_name, index_params=index_params)
-        # for field in schema.fields:
-        #     if field.dtype == DataType.FLOAT_VECTOR:
-        #         collection.create_index(field_name=field.name, index_params=index_params)
         return self.collection
 
     @classmethod
@@ -151,7 +148,9 @@ class MilvusDB:
                 return FieldSchema(name=series.name, dtype=DataType.VARCHAR, max_length=int(VarcharLength.Max))
         elif isinstance(sample_data, (int, np.integer)):
             return FieldSchema(name=series.name, dtype=DataType.INT64)
-        elif isinstance(sample_data, (float, np.float)):
+        elif isinstance(sample_data, float):
+            if isinstance(sample_data, np.float64):
+                return FieldSchema(name=series.name, dtype=DataType.DOUBLE)
             return FieldSchema(name=series.name, dtype=DataType.FLOAT)
         elif isinstance(sample_data, bool):
             return FieldSchema(name=series.name, dtype=DataType.BOOL)
@@ -196,6 +195,7 @@ class MilvusDB:
         print(f"no collection named {collection_name}")
 
     def insert_df_into_collection(self, df: pd.DataFrame):
+        print(f"Inserting data into collection {self.collection.name}...")
         self.collection.insert(df)
         self.collection.flush()
         print(f"Insert dataframe into collection {self.collection.name} successfully")
@@ -207,9 +207,9 @@ class MilvusDB:
             check milvus query rule: https://milvus.io/docs/boolean.md
         '''
         assert isinstance(self.collection, Collection), "current collection is None, set to correct one"
-        # all_fields = set(f.name for f in self.collection.schema.fields)
-        # assert all(field in all_fields for field in output_fields), \
-        #     f"Invalid output_fields {output_fields}, fields in current collection is {all_fields}"
+        all_fields = set(f.name for f in self.collection.schema.fields)
+        assert all(field in all_fields for field in output_fields), \
+            f"Invalid output_fields {output_fields}, fields in current collection is {all_fields}"
         if not self._collection_loaded:
             self.collection.load()
             self._collection_loaded = True
@@ -231,42 +231,4 @@ class MilvusDB:
                         OpenAIEmbeddings(openai_api_key="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")):
         return model.embed_query(query)
 
-    # def insert_dataframe_into_milvus(self, collection_name: str, df: pd.DataFrame):
-    #     insert_pipe = (pipe.input('df')
-    #                    .flat_map('df', 'data', lambda df: df.values.tolist())
-    #                    .map('data', 'res', ops.ann_insert.milvus_client(host=self._host,
-    #                                                                     port=self._port,
-    #                                                                     db_name=self.db_name,
-    #                                                                     collection_name=collection_name))
-    #                    .output('res')
-    #                    )
-    #
-    #     insert_pipe(df)
-    #
-    # def search_in_milvus(self, query: str, collection_name: str, output_fields: List[str]):
-    #     '''
-    #         check milvus query rule: https://milvus.io/docs/boolean.md
-    #     '''
-    #     collection = self.get_collection_by_name(collection_name)
-    #     all_fields = set(f.name for f in collection.schema.fields)
-    #     assert all(field in all_fields for field in output_fields), \
-    #         f"Invalid output_fields {output_fields}, fields in current collection is {all_fields}"
-    #     # collection.load()
-    #
-    #     search_pipe = (pipe.input('query')
-    #                         .map('query', 'vec', ops.sentence_embedding.openai(model_name='text-embedding-ada-002',
-    #                                                                            api_key="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"))
-    #                         # .map('vec', 'vec', lambda x: x / np.linalg.norm(x, axis=0))
-    #                         .flat_map('vec', ('id', 'score', *output_fields),
-    #                                   ops.ann_search.milvus_client(host=self._host,
-    #                                                                port=self._port,
-    #                                                                collection_name=collection_name,
-    #                                                                output_fields=output_fields,
-    #                                                                limit=5))
-    #                         .output('query', 'id', 'score', *output_fields)
-    #                    )
-    #
-    #     res = search_pipe(query)
-    #     res_schema = res.schema
-    #     return [[{res_schema[i]: data[i]} for i in range(len(res_schema))] for data in res.to_list()]
 
