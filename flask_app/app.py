@@ -17,15 +17,14 @@
 # The file to initialize and start Flask server
 
 from flask import Flask, request, jsonify
-from modules.chains.chat import chat, get_history
-from modules.chains.search import search
-from modules.chains.upload import upload
+from modules.actions.chat import ChatBase
+from modules.roles.saler_wines import SalesWines
+from modules.actions.search import search
+from modules.actions.upload import upload
 from flasgger import Swagger, swag_from
 from config import get_config
 from dotenv import load_dotenv
 from utils.logging import LOGGER
-
-import os
 
 
 def create_app(config_key='dev'):
@@ -76,7 +75,7 @@ def create_app(config_key='dev'):
                 LOGGER.info(
                     'Received chat request with query: {}, model_name: {}, with_memory: {}, history length: {}.'
                     .format(query, model_name, with_memory, 0 if history is None else len(history)))
-                response = chat(query, model_name, with_memory, history)
+                response = ChatBase().chat(query)
 
                 LOGGER.info('Generated chat response: {}.'.format(response))
 
@@ -90,13 +89,50 @@ def create_app(config_key='dev'):
 
         if request.method == 'GET':
             try:
-                history = get_history()
+                history = ChatBase().get_history()
                 LOGGER.info('Generated chat history: {}.'.format(history))
                 return jsonify({'history': history}), 200
             except Exception as e:
                 LOGGER.error('An error occurred in chat_view_GET: {}.'.format(e))
                 return jsonify({'error': str(e)}), 500
 
+    @app.route("/wine_sales", methods=['POST', 'GET'])
+    def wine_sales_view():
+        if request.method == 'POST':
+            try:
+                data = request.get_json()
+                query = data.get('query')
+                model_name = data.get('model_name')
+                history = data.get('history')
+                with_memory = data.get('with_memory')
+
+                if not query:
+                    LOGGER.error('Query must not be empty.')
+                    return jsonify({'error': 'Query must not be empty.'}), 400
+
+                LOGGER.info(
+                    'Received chat request with query: {}, model_name: {}, with_memory: {}, history length: {}.'
+                    .format(query, model_name, with_memory, 0 if history is None else len(history)))
+                response = SalesWines(query, model_name, with_memory, history).chat_reply()
+
+                LOGGER.info('Generated chat response: {}.'.format(response))
+
+                return jsonify(response), 200
+            except ValueError as e:
+                LOGGER.error('Post content error occurred in chat_view_POST function: {}.'.format(e))
+                return jsonify(({'error': str(e)})), 400
+            except Exception as e:
+                LOGGER.error('An error occurred in chat_view_POST function: {}.'.format(e))
+                return jsonify({'error': str(e)}), 500
+
+        if request.method == 'GET':
+            try:
+                history = SalesWines().get_history()
+                LOGGER.info('Generated wine sales chat history: {}.'.format(history))
+                return jsonify({'history': history}), 200
+            except Exception as e:
+                LOGGER.error('An error occurred in wine_sales_view_GET: {}.'.format(e))
+                return jsonify({'error': str(e)}), 500
     @app.route("/upload", methods=['POST'])
     def upload_view():
         try:
@@ -140,7 +176,7 @@ def create_app(config_key='dev'):
                     response = search(query, model_name, with_memory,
                                       history, collection_name)
                 else:
-                    response = chat(query, model_name, with_memory, history)
+                    response = ChatBase().chat(query, model_name, with_memory, history)
 
                 return jsonify(response), 200
 
