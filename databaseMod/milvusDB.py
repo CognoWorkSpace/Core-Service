@@ -147,9 +147,9 @@ class MilvusDB:
             else:
                 return FieldSchema(name=series.name, dtype=DataType.VARCHAR, max_length=int(VarcharLength.Max))
         elif isinstance(sample_data, (int, np.integer)):
-            return FieldSchema(name=series.name, dtype=DataType.INT64)
-        elif isinstance(sample_data, float):
-            if isinstance(sample_data, np.float64):
+            return FieldSchema(name=series.name, dtype=getattr(DataType, str(sample_data.dtype).upper()))
+        elif isinstance(sample_data, (float, np.half, np.single)):
+            if isinstance(sample_data, np.double):
                 return FieldSchema(name=series.name, dtype=DataType.DOUBLE)
             return FieldSchema(name=series.name, dtype=DataType.FLOAT)
         elif isinstance(sample_data, bool):
