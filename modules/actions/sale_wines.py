@@ -100,6 +100,7 @@ class SalesWinesAction(ChatBase):
         return tools
 
     def chat_response(self, query):
+        # TODO: 更新milvus内容，先不加入History功能
         prompt = CustomPromptTemplate(
             template=PROMPT_TEMPLATE,
             tools=self.set_up_tools(),
@@ -110,9 +111,9 @@ class SalesWinesAction(ChatBase):
         sales_wins_prompts = PromptTemplate(template=prompt)
         LOGGER.info("sale wine prompt is")
         LOGGER.info(sales_wins_prompts)
-        respones = self.chat(query, prompt=sales_wins_prompts)
-        LOGGER.info("return response is {}".format(respones))
-        return respones
+        response = self.chat(query, prompt=sales_wins_prompts)
+        LOGGER.info("return response is {}".format(response))
+        return response
 
 
 class CustomPromptTemplate(StringPromptTemplate):
