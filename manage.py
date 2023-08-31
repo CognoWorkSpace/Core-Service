@@ -20,6 +20,9 @@
 from flask_app.app import create_app
 import os
 
+LOG_PATH = '/var/log/Core-Service'
+
+
 if __name__ == 'main':
     app = create_app(os.getenv("FLASK_ENV"))
     app.run(host=os.getenv("FLASK_RUN_HOST"))
