@@ -1,8 +1,8 @@
-from langchain.chains import ConversationChain
+from langchain.chains import ConversationChain, LLMChain
 from langchain.memory import ChatMessageHistory
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.schema import messages_from_dict, messages_to_dict
-from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser
+from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser, Agent
 from typing import List, Union
 from langchain.schema import AgentAction, AgentFinish, OutputParserException
 import re
@@ -36,22 +36,29 @@ class ChatBase:
 
     def keep_memory_message(self, num, with_memory):
         memory = ConversationBufferWindowMemory(
-            k=current_app.config.get("OPENAI_BUFFER_TOP_K", num) if with_memory else 0, chat_memory=chat_history)
+            k=current_app.config.get("OPENAI_BUFFER_TOP_K", num) if with_memory else 0, chat_memory=chat_history, memory_key="chat_history", input_key="input")
         LOGGER.info("Memory object created.")
         return memory
 
     def chat(self, query, prompt=""):
         tools = self.set_up_tools()
+        LOGGER.info("get into chat")
         global model_name, with_memory, history, conversation, num
         if self.model_name is None:
             model_name = current_app.config.get("MODEL", const.OPENAI)
         if self.with_memory is None:
             with_memory = False
+        else:
+            with_memory = self.with_memory
         if self.history is None:
             history = []
+        else:
+            history = self.history
         if self.num is None:
             num = 5
-
+        else:
+            num = self.num
+        # LOGGER.info(model_name, with_memory, history, num)
         LOGGER.info(
             "Chat function starts with query: {}, model_name: {}, with_memory: {}, history length: {}.".format(query,
                                                                                                                model_name,
@@ -64,7 +71,7 @@ class ChatBase:
             memory = self.keep_memory_message(num, with_memory)
 
             # Create a Conversation Chain
-            if prompt == "" and len(tools) == 0:
+            if prompt is None and len(tools) == 0:
                 conversation = ConversationChain(
                     llm=create_model(model_name),
                     verbose=True,
@@ -83,12 +90,15 @@ class ChatBase:
 
                 return {"reply": reply, "history": history}
             else:
+
+                memory = ConversationBufferWindowMemory(k=5, chat_memory=chat_history, memory_key="chat_history", input_key="input")
+
                 output_parser = CustomOutputParser()
-                conversation = ConversationChain(
+
+                conversation = LLMChain(
                     llm=create_model(model_name),
                     verbose=True,
-                    memory=memory,
-                    prompt=prompt
+                    prompt=prompt,
                 )
                 tool_names = [tool.name for tool in tools]
                 agent = LLMSingleActionAgent(
@@ -98,9 +108,9 @@ class ChatBase:
                     allowed_tools=tool_names,
                 )
                 agent_executor = AgentExecutor.from_agent_and_tools(
-                    agent=agent, tools=tools, verbose=True
+                    agent=agent, tools=tools, verbose=True, memory=memory
                 )
-                reply = agent_executor.run(query)
+                reply = agent_executor.run({'input': query, 'history': history, 'salesperson_name': 'Dijkstra', 'company_name': 'Test company_name'})
                 LOGGER.info("Reply generated: {}".format(reply))
 
                 history = messages_to_dict(chat_history.messages)

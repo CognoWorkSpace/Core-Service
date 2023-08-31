@@ -1,5 +1,5 @@
 from typing import List, Tuple
-from chat import ChatBase
+from .chat import ChatBase
 from langchain.prompts import PromptTemplate
 from utils.logging import LOGGER
 from langchain.agents import Tool
@@ -82,6 +82,9 @@ Only generate one response at a time and act as CognoPal only!
 When you do not have an exact match with a product that the prospect wants, 
 tell them and provide relevant products, never recommend products from other stores
 never refer them to another shop.
+
+## 
+When you think you are done with the whole task and get the Final answer, please let your output start with 'Final Answer:'
 """
 
 
@@ -101,17 +104,19 @@ class SalesWinesAction(ChatBase):
 
     def chat_response(self, query):
         # TODO: 更新milvus内容，先不加入History功能
+        LOGGER.info("get into the chat_response")
         prompt = CustomPromptTemplate(
             template=PROMPT_TEMPLATE,
             tools=self.set_up_tools(),
             # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
             # This includes the `intermediate_steps` variable because that is needed
-            input_variables=["input", "intermediate_steps", "history"]
+            input_variables=["input", "intermediate_steps", "history", "salesperson_name", "company_name"]
         )
-        sales_wins_prompts = PromptTemplate(template=prompt)
-        LOGGER.info("sale wine prompt is")
-        LOGGER.info(sales_wins_prompts)
-        response = self.chat(query, prompt=sales_wins_prompts)
+        LOGGER.info("The prompt is: {}".format(prompt))
+        # sales_wins_prompts = PromptTemplate(template=prompt)
+        # LOGGER.info("sale wine prompt is")
+        # LOGGER.info(sales_wins_prompts)
+        response = self.chat(query, prompt=prompt)
         LOGGER.info("return response is {}".format(response))
         return response
 
