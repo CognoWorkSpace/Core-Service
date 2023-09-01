@@ -57,11 +57,10 @@ Final Answer: the final answer to the original input question
 Begin! Remember to speak as a pirate when giving your final answer. Use lots of "Arg"s
 
 Previous conversation history:
-{history}
+{chat_history}
 
 Question: {input}
 {agent_scratchpad}
-
 
 ## Examples
 Example 1:
@@ -75,6 +74,7 @@ User: I am not interested, thanks.
 {salesperson_name}: Alright, no worries, have a good day! 
 End of example 1.
 
+
 You must respond according to the previous conversation history and the stage of the 
 conversation you are at.
 
@@ -83,8 +83,8 @@ When you do not have an exact match with a product that the prospect wants,
 tell them and provide relevant products, never recommend products from other stores
 never refer them to another shop.
 
-## 
-When you think you are done with the whole task and get the Final answer, please let your output start with 'Final Answer:'
+##
+End this chat rule： When you think you are done with the whole task and get the Final answer, please let your output start with 'Final Answer:'
 """
 
 
@@ -110,7 +110,7 @@ class SalesWinesAction(ChatBase):
             tools=self.set_up_tools(),
             # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
             # This includes the `intermediate_steps` variable because that is needed
-            input_variables=["input", "intermediate_steps", "history", "salesperson_name", "company_name"]
+            input_variables=["input", "intermediate_steps", "salesperson_name", "company_name", "chat_history"]
         )
         LOGGER.info("The prompt is: {}".format(prompt))
         # sales_wins_prompts = PromptTemplate(template=prompt)
