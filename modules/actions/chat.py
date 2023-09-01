@@ -110,11 +110,12 @@ class ChatBase:
                 agent_executor = AgentExecutor.from_agent_and_tools(
                     agent=agent, tools=tools, verbose=True, memory=memory
                 )
-                reply = agent_executor.run({'input': query, 'history': history, 'salesperson_name': 'Dijkstra', 'company_name': 'Test company_name'})
+
+                reply = agent_executor.run({'input': query, 'salesperson_name': 'Dijkstra', 'company_name': 'Test company_name'})
                 LOGGER.info("Reply generated: {}".format(reply))
 
-                history = messages_to_dict(chat_history.messages)
 
+                history = messages_to_dict(chat_history.messages)
                 LOGGER.info("Chat function ends.")
 
                 return {"reply": reply, "history": history}
