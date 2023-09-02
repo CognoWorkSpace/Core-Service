@@ -15,7 +15,7 @@ class Config(dict):
             raise Exception("key {} not in available_setting".format(key))
         return super().__setitem__(key, value)
 
-    def get(self, key):
+    def get(self, key, default=None):
         try:
             return self[key]
         except KeyError as e:
@@ -35,11 +35,9 @@ def transform_keys(data, parent_key=''):
     return new_data
 
 
-def get_config(key=''):
+with open('config.yml', 'r') as f:
+    yaml_data = yaml.safe_load(f)
 
-    with open('config/config_{}.yml'.format(key), 'r') as f:
-        yaml_data = yaml.safe_load(f)
+config = Config(transform_keys(yaml_data))
 
-    config = Config(transform_keys(yaml_data))
-    return config
-
+print(config)
