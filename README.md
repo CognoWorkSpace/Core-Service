@@ -5,6 +5,44 @@
 这是一个基于 LangChain 的核心服务器，目的在于连接 SQL 以及 Milvus 数据库，同时获取用户信息，搜索数据库、调用大模型等。
 项目基于 Flask 框架，计划支持 logging 的日志记录（待完成），后续加入 Agent 代理功能.
 
+## 安装方式
+
+克隆此仓库后，需要配置config以及环境变量，随后可以使用Docker compose部署。
+
+### 配置config
+
+进入config路径下，选择自己所要使用的config, 进行配置。如果仅为测试，推荐使用 ```config_test.yml```。
+
+### 配置环境
+
+复制 ```.env_copy``` 位 ```.env```, 填写```OPENAI_API_KEY```以及在```FLASK_ENV=```中填写刚才刚才config对应的环境： test, dev, 或 pro。
+
+### Docker Compose安装 
+
+检查环境中是否有docker compoer：
+```bash
+docker compose version
+```
+
+如果没有，请下载docker compose安装。这里给出Ubuntu的安装方法  
+```bash
+sudo apt-get update
+sudo apt-get install docker-compose-plugin
+```
+
+其他环境请查看详细教程[docker-compose 官方文档](https://docs.docker.com/compose/install/linux/)
+
+
+### 运行Docker环境
+直接运行sh脚本
+```bash
+sudo ./build.sh
+```
+或者运行
+```bash
+docker-compose build
+docker-compose up
+```
 
 ## 任务推进
 
@@ -13,23 +51,21 @@
   - [x] 多轮对话
 - [ ] 提示词添加
 - [ ] 敏感词添加
-- [ ] 商讨 Agent 问题
-- [ ] logging 添加
+- [x] 商讨 Agent 问题
+- [x] logging 添加
 - [x] Milvus 数据库上传 **此功能非最终版本，待完善**
   - [ ] TXT
   - [ ] PDF
   - [ ] CSV
 - [ ] 连接 MySQL 数据库 
-- [x] Postgres 数据库测试 **Postgres数据库仅为测试使用，与最终产品无关**
-  - [x] TXT
-  - [ ] PDF (待测试)
-  - [ ] CSV (待测试)
 - [x] milvus 数据库测试 **此功能非最终版本，待完善**
   - [x] 支持多轮搜索
 - [ ] 调用搜索引擎查询
 - [x] Splitter 三种不同方式（待测试）
 - [x] util更新
 - [x] config重构
+- [x] Docker部署
+- [x] AWS测试
 
 ## APIS
 
