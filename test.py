@@ -1,13 +1,13 @@
 import json
 import unittest
 
-from flask_app.app import create_app
+from app import app
 
 
 class ChatTestCases(unittest.TestCase):
 
     def setUp(self):
-        self.app = create_app(config_key='test')
+        self.app = app
         self.client = self.app.test_client()
 
     def test_single_chat(self):
