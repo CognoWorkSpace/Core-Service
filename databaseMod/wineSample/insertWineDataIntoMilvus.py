@@ -26,4 +26,3 @@ mvs_db.collection = mvs_db.create_collection_by_df(
 )
 
 mvs_db.insert_df_into_collection(df)
-
