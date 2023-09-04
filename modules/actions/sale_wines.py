@@ -4,6 +4,8 @@ from langchain.prompts import PromptTemplate
 from utils.logging import LOGGER
 from langchain.agents import Tool
 from langchain.prompts import StringPromptTemplate
+from langchain import  SerpAPIWrapper
+# from ..tools.Search import CustomSearchTool
 
 # todo change this and argue this with Terry
 PROMPT_TEMPLATE = """
@@ -95,11 +97,16 @@ class SalesWinesAction(ChatBase):
     def search_from_cache(self):
         pass
 
-    def search_from_knowledge_base(self):
-        pass
-
+    # TODO:
     def set_up_tools(self):
-        tools = []
+        search = SerpAPIWrapper(serpapi_api_key="5e7d15b3a0a43a8e0c0e74c6421f13a3bcabee2a59bca926abf825a190a4e7c7")
+        tools = [
+            Tool(
+                name="Search",
+                func=search.run,
+                description="useful for when you need to answer questions about current weather"
+            )
+        ]
         return tools
 
     def chat_response(self, query):
@@ -119,6 +126,34 @@ class SalesWinesAction(ChatBase):
         response = self.chat(query, prompt=prompt)
         LOGGER.info("return response is {}".format(response))
         return response
+
+    # def search_from_knowledge_base(self, query):
+    #
+    #     LOGGER.info("Start Searching")
+    #     # Creating Database connection string
+    #     LOGGER.info("into 3")
+    #     connection_string = create_connection_string(database_name=current_app.config.get("DATABASE", const.MILVUS))
+    #     # Creating embedding method
+    #     LOGGER.info("into 4")
+    #     embeddings = create_embedding()
+    #     # Creating Database
+    #     LOGGER.info("into 5")
+    #     database = create_database(database_name=current_app.config.get("DATABASE", const.MILVUS),
+    #                                collection_name='wine_data',
+    #                                connection_string=connection_string, embeddings=embeddings)
+    #
+    #     memory = ConversationBufferWindowMemory(
+    #         memory_key="chat_history", k=10, chat_memory=chat_history,
+    #         return_messages=True)
+    #
+    #     LOGGER.info("into 6{}".format(memory))
+    #     qa = ConversationalRetrievalChain.from_llm(
+    #         llm=create_model(model_name),
+    #         retriever=database.as_retriever(search_kwargs={"k": 5}), memory=memory)
+    #     LOGGER.info("into 7")
+    #     reply = qa({"question": query})
+    #     history = messages_to_dict(chat_history.messages)
+    #     return {"reply": reply["answer"], "history": history}
 
 
 class CustomPromptTemplate(StringPromptTemplate):

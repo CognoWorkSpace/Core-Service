@@ -3,11 +3,16 @@ from langchain.memory import ChatMessageHistory
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.schema import messages_from_dict, messages_to_dict
 from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent, AgentOutputParser, Agent
+from langchain.chains import ConversationalRetrievalChain
 from typing import List, Union
 from langchain.schema import AgentAction, AgentFinish, OutputParserException
 import re
 import const
 from flask import current_app
+from modules.factories.connection_string_factory import create_connection_string
+from modules.factories.database_factory import create_database
+from modules.factories.embedding_factory import create_embedding
+from modules.factories.model_factory import create_model
 from modules.factories.model_factory import create_model
 
 from utils.logging import LOGGER
@@ -40,9 +45,9 @@ class ChatBase:
         LOGGER.info("Memory object created.")
         return memory
 
-    def chat(self, query, prompt=""):
+    def chat(self, query, prompt="", isSearch=False):
         tools = self.set_up_tools()
-        LOGGER.info("get into chat")
+        LOGGER.info("get into chat func")
         global model_name, with_memory, history, conversation, num
         if self.model_name is None:
             model_name = current_app.config.get("MODEL", const.OPENAI)
@@ -65,12 +70,16 @@ class ChatBase:
                                                                                                                with_memory,
                                                                                                                len(history)))
         try:
+            # TODO: Add prompt
+            if isSearch:
+                response = self.search_from_knowledge_base(query=query)
+                LOGGER.info("DataBase result{}".format(response['reply']))
+                return response
+            # Create a Conversation Chain
             # Convert dicts to message object
             self.convert_message(history)
             # Create memory object that only keep 5 closest messages
             memory = self.keep_memory_message(num, with_memory)
-
-            # Create a Conversation Chain
             if prompt is None and len(tools) == 0:
                 conversation = ConversationChain(
                     llm=create_model(model_name),
@@ -101,6 +110,7 @@ class ChatBase:
                     prompt=prompt,
                 )
                 tool_names = [tool.name for tool in tools]
+                LOGGER.info("Tools name:{}".format(tool_names))
                 agent = LLMSingleActionAgent(
                     llm_chain=conversation,
                     output_parser=output_parser,
@@ -128,8 +138,28 @@ class ChatBase:
     def get_history(self):
         return messages_to_dict(chat_history.messages)
 
-    def search_from_knowledge_base(self):
-        pass
+    def search_from_knowledge_base(self, query):
+
+        LOGGER.info("Start Searching")
+        # Creating Database connection string
+        connection_string = create_connection_string(database_name=current_app.config.get("DATABASE", const.MILVUS))
+        # Creating embedding method
+        embeddings = create_embedding()
+        # Creating Database
+        database = create_database(database_name=current_app.config.get("DATABASE", const.MILVUS),
+                                   collection_name='wine_data',
+                                   connection_string=connection_string, embeddings=embeddings)
+
+        memory = ConversationBufferWindowMemory(
+            memory_key="chat_history", k=10, chat_memory=chat_history,
+            return_messages=True)
+
+        qa = ConversationalRetrievalChain.from_llm(
+            llm=create_model(model_name),
+            retriever=database.as_retriever(search_kwargs={"k": 5}), memory=memory)
+        reply = qa({"question": query})
+        history = messages_to_dict(chat_history.messages)
+        return {"reply": reply["answer"], "history": history}
 
     def search_from_cache(self):
         pass
