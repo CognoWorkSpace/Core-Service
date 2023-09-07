@@ -13,7 +13,6 @@ from modules.factories.connection_string_factory import create_connection_string
 from modules.factories.database_factory import create_database
 from modules.factories.embedding_factory import create_embedding
 from modules.factories.model_factory import create_model
-from modules.factories.model_factory import create_model
 
 from utils.logging import LOGGER
 
@@ -71,7 +70,7 @@ class ChatBase:
                                                                                                                len(history)))
         try:
             # TODO: Add prompt
-            if isSearch:
+            if isSearch is True:
                 response = self.search_from_knowledge_base(query=query)
                 LOGGER.info("DataBase result{}".format(response['reply']))
                 return response
@@ -121,7 +120,7 @@ class ChatBase:
                     agent=agent, tools=tools, verbose=True, memory=memory
                 )
 
-                reply = agent_executor.run({'input': query, 'salesperson_name': 'Dijkstra', 'company_name': 'Test company_name'})
+                reply = agent_executor.run({'input': query})
                 LOGGER.info("Reply generated: {}".format(reply))
 
 
@@ -153,7 +152,8 @@ class ChatBase:
         memory = ConversationBufferWindowMemory(
             memory_key="chat_history", k=10, chat_memory=chat_history,
             return_messages=True)
-
+        docs = database.similarity_search(query)
+        LOGGER.info("DataBase Result{}".format(docs))
         qa = ConversationalRetrievalChain.from_llm(
             llm=create_model(model_name),
             retriever=database.as_retriever(search_kwargs={"k": 5}), memory=memory)
