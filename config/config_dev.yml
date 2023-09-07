@@ -15,10 +15,10 @@ pgvector:
 
 # Milvus configuration
 milvus:
-  host: ''
-  port: ''
-  user: 'test'
-  password: 'test'
+  host: '127.0.0.1'
+  port: '19530'
+  user: ''
+  password: ''
 
 # OpenAI configuration
 openai:

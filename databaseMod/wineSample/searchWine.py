@@ -11,6 +11,7 @@ output_fields = [field.name for field in mvs_db.collection.schema.fields if fiel
 
 res = mvs_db.conduct_vector_similar_search(query="sweet red wine with price under 50", limit=5,
                                            output_fields=output_fields)
+print(res)
 for search_res in res:
     for hit in search_res:
         print(hit)
