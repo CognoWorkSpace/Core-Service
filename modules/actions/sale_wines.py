@@ -117,14 +117,23 @@ as the solution that can address their pain points.
 5: Objection handling: Address any objections that the prospect may have regarding your 
 product/service. Be prepared to provide evidence or testimonials to support your claims.
 
+6: Output validation: When you decide to output result, you must check the output is obeying the prompt design.
+
 7: Close: Ask for the sale by proposing a next step. This could be a link or QR code to a purchase page. 
 Ensure to summarize what has been discussed and reiterate the benefits.
 
+## Product information
+### Here are some products' information:
+
+{products}
+
+**If it is possible, please try to use user-friendly format to recommend the information to the customer.**
 
 ## tools using
-When the user ask questions about wine, use this tool to find the wine your company have: {tools}
+Answer the question as best as you can, you can also have access to use the following tools: {tools}
 
-If you use tools to answer questions, using the following format, but comply with the former roles and rules at the same time
+If there is no tools above, skip the use of tools.  
+If you use tools to answer questions, using the following format, but comply with the former roles and rules at the same time  
 
 Question: the input question you must answer
 Thought: you should always think about what to do
@@ -133,20 +142,16 @@ Action Input: the input to the action
 Observation: the result of the action
 ... (this Thought/Action/Action Input/Observation can repeat N times)
 Thought: I now know the final answer
-Final Answer: the final answer to the original input question, **you should not just reply what you get from tools, but refine the output**
+Final Answer: the final answer to the original input question
 
 Begin! Remember to speak as a pirate when giving your final answer. Use lots of "Arg"s
 
 Previous conversation history:
 {chat_history}
 
-Here is some products' information, if it is possible, try to recommend some product to the user:
-
-{products}
-
 Question: {input}
 {agent_scratchpad}
-
+    
 
 You must respond according to the previous conversation history and the stage of the 
 conversation you are at.
@@ -167,26 +172,26 @@ mvs_db.collection = 'wine_data'
 output_fields = [field.name for field in mvs_db.collection.schema.fields if
                  field.name not in {'id', 'wine_info_embed'}]
 
-@tool("wine seller boot", return_direct=True)
-def wine_search(query: str) -> str:
-    """A wine search tool, use it when you need to search products from your company"""
-
-    res = mvs_db.conduct_vector_similar_search(query=query, limit=1,
-                                               output_fields=output_fields)
-
-    entity_strings = []
-    index = 1
-    for search_res in res:
-        for hit in search_res:
-            entity = hit.entity.to_dict()["entity"]
-            entity_str = "* Product " + str(index) + ": " + ', '.join(
-                f"{key}: {value}" for key, value in entity.items())
-            entity_strings.append(entity_str)
-            index = index + 1
-
-    result_str = '\n'.join(entity_strings)
-    LOGGER.info("Search Tool found:{}".format(result_str))
-    return result_str
+# @tool("wine seller boot", return_direct=True)
+# def wine_search(query: str) -> str:
+#     """A wine search tool, use it when you need to search products from your company"""
+#
+#     res = mvs_db.conduct_vector_similar_search(query=query, limit=1,
+#                                                output_fields=output_fields)
+#
+#     entity_strings = []
+#     index = 1
+#     for search_res in res:
+#         for hit in search_res:
+#             entity = hit.entity.to_dict()["entity"]
+#             entity_str = "* Product " + str(index) + ": " + ', '.join(
+#                 f"{key}: {value}" for key, value in entity.items())
+#             entity_strings.append(entity_str)
+#             index = index + 1
+#
+#     result_str = '\n'.join(entity_strings)
+#     LOGGER.info("Search Tool found:{}".format(result_str))
+#     return result_str
 
 
 
@@ -199,29 +204,29 @@ class SalesWinesAction(ChatBase):
 
     # TODO:
     def set_up_tools(self):
-        tools = [
-            Tool.from_function(
-                name="wine search tool",
-                description="A wine search tool, use it when you need to search products from your company",
-                func=wine_search,
-                return_direct=True
-            )
-        ]
+        # tools = [
+        #     Tool.from_function(
+        #         name="wine search tool",
+        #         description="A wine search tool, use it when you need to search products from your company",
+        #         func=wine_search,
+        #         return_direct=True
+        #     )
+        # ]
         tools = []
         return tools
 
     def chat_response(self, query):
-        LOGGER.info("get into the chat_response")
-        prompt = CustomPromptTemplate(
-            template=PROMPT_TEMPLATE,
-            tools=self.set_up_tools(),
-            # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
-            # This includes the `intermediate_steps` variable because that is needed
-            input_variables=["input", "intermediate_steps", "chat_history", "products"]
-        )
-        LOGGER.info("The prompt is: {}".format(prompt))
-        response = self.chat(query, prompt=prompt)
-        LOGGER.info("return response is {}".format(response))
+        # LOGGER.info("get into the chat_response")
+        # prompt = CustomPromptTemplate(
+        #     template=PROMPT_TEMPLATE,
+        #     tools=self.set_up_tools(),
+        #     # This omits the `agent_scratchpad`, `tools`, and `tool_names` variables because those are generated dynamically
+        #     # This includes the `intermediate_steps` variable because that is needed
+        #     input_variables=["input", "intermediate_steps", "chat_history", "products"]
+        # )
+        # LOGGER.info("The prompt is: {}".format(prompt))
+        response = self.chat_with_database(query)
+        # LOGGER.info("return response is {}".format(response))
         return response
 
     # def search_from_knowledge_base(self, query):

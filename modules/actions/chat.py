@@ -15,7 +15,7 @@ from modules.factories.connection_string_factory import create_connection_string
 from modules.factories.database_factory import create_database
 from modules.factories.embedding_factory import create_embedding
 from modules.factories.model_factory import create_model
-
+from langchain import PromptTemplate
 from utils.logging import LOGGER
 
 # TODO: try to connect to MYSQL to acquire history message based on database. The test implementation is let all the user share one common history message.
@@ -26,6 +26,8 @@ mvs_db.db_name = 'wine'
 mvs_db.collection = 'wine_data'
 output_fields = [field.name for field in mvs_db.collection.schema.fields if
                  field.name not in {'id', 'wine_info_embed'}]
+
+
 def wine_search(query: str) -> str:
     """A wine search tool, use it when you need to search products from your company"""
 
@@ -45,6 +47,7 @@ def wine_search(query: str) -> str:
     result_str = '\n'.join(entity_strings)
     LOGGER.info("Search Tool found:{}".format(result_str))
     return result_str
+
 
 class ChatBase:
     def __init__(self, model=None, in_memory=None, chats_history=None, number=None):
@@ -66,9 +69,81 @@ class ChatBase:
 
     def keep_memory_message(self, num, with_memory):
         memory = ConversationBufferWindowMemory(
-            k=current_app.config.get("OPENAI_BUFFER_TOP_K", num) if with_memory else 0, chat_memory=chat_history, memory_key="chat_history", input_key="input")
+            k=current_app.config.get("OPENAI_BUFFER_TOP_K", num) if with_memory else 0, chat_memory=chat_history,
+            memory_key="chat_history", input_key="input")
         LOGGER.info("Memory object created.")
         return memory
+
+    def chat_with_database(self, query):
+        template = """
+## Roles and Rules
+Never forget your name is CognoPal. 
+You are created by Cogno. You are an AI Assistant Customized for Seamless Global Shopping.
+You work as a personal shopping assistant recommending customers with products they might enjoy.
+Always answer in the language the prospect asks in.
+
+Keep your responses in short length to retain the user's attention. 
+Start the conversation by just a greeting and how is the prospect doing without 
+pitching in your first turn.
+Always think about at which conversation stage you are at before answering:
+
+1: Introduction: Start the conversation by introducing yourself. 
+Be polite and respectful while keeping the tone of the conversation professional. 
+Your greeting should be welcoming. Always clarify in your greeting the reason why you 
+are messaging.
+
+2: Value proposition: Briefly explain how your product/service can benefit the prospect. 
+Focus on the unique selling points and value proposition of your product/service that 
+sets it apart from competitors.
+
+3: Needs analysis: Ask open-ended questions to uncover the prospect's needs and pain 
+points. Listen carefully to their responses and take notes.
+
+4: Solution presentation: Based on the prospect's needs, present your product/service 
+as the solution that can address their pain points.
+
+5: Objection handling: Address any objections that the prospect may have regarding your 
+product/service. Be prepared to provide evidence or testimonials to support your claims.
+
+## Product information
+### Here are some company's products' information:
+{products}  
+  
+**I will provide you with a chat log later, as well as costumer's new input. Please respond to the costumer's new input.**
+**Please try to use the product information given above. These products are from our company, please do not recommend products other than those mentioned in the information above and in the chat log.**
+        """
+
+        products = wine_search(query)
+
+        prompt = PromptTemplate(
+            input_variables=["products"],
+            template=template,
+        )
+        template = prompt.format(products=products) + """        
+## Chat log:
+{chat_history}
+Customer: {input}
+CognoPal:
+        """
+        LOGGER.info("cur tem".format(template))
+        LOGGER.info("Database result: {}".format(products))
+        memory = ConversationBufferWindowMemory(
+            k=current_app.config.get("OPENAI_BUFFER_TOP_K", 5), chat_memory=chat_history, ai_prefix="CognoPal",human_prefix="Customer",
+            memory_key="chat_history",
+            input_key="input")
+
+        prompt = PromptTemplate(input_variables=["chat_history", "input"], template=template)
+
+        conversation = ConversationChain(
+            llm=create_model(current_app.config.get("MODEL", const.OPENAI)), verbose=True, memory=memory, prompt=prompt
+        )
+
+        reply = conversation.predict(input=query)
+        LOGGER.info("Reply generated: {}".format(reply))
+        history = messages_to_dict(chat_history.messages)
+        LOGGER.info("Chat function ends.")
+
+        return {"reply": reply, "history": history}
 
     def chat(self, query, prompt="", isSearch=False):
         tools = self.set_up_tools()
@@ -125,7 +200,8 @@ class ChatBase:
             else:
 
                 products = wine_search(query)
-                memory = ConversationBufferWindowMemory(k=5, chat_memory=chat_history, memory_key="chat_history", input_key="input")
+                memory = ConversationBufferWindowMemory(k=5, chat_memory=chat_history, memory_key="chat_history",
+                                                        input_key="input")
 
                 output_parser = CustomOutputParser()
 
@@ -148,7 +224,6 @@ class ChatBase:
 
                 reply = agent_executor.run({'input': query, 'products': products})
                 LOGGER.info("Reply generated: {}".format(reply))
-
 
                 history = messages_to_dict(chat_history.messages)
                 LOGGER.info("Chat function ends.")
