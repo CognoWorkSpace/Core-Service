@@ -8,6 +8,8 @@ from typing import List, Union
 from langchain.schema import AgentAction, AgentFinish, OutputParserException
 import re
 import const
+
+from databaseMod.milvusDB import MilvusDB
 from flask import current_app
 from modules.factories.connection_string_factory import create_connection_string
 from modules.factories.database_factory import create_database
@@ -19,6 +21,30 @@ from utils.logging import LOGGER
 # TODO: try to connect to MYSQL to acquire history message based on database. The test implementation is let all the user share one common history message.
 chat_history = ChatMessageHistory()  # Change the memory location to save all message from users
 
+mvs_db = MilvusDB()
+mvs_db.db_name = 'wine'
+mvs_db.collection = 'wine_data'
+output_fields = [field.name for field in mvs_db.collection.schema.fields if
+                 field.name not in {'id', 'wine_info_embed'}]
+def wine_search(query: str) -> str:
+    """A wine search tool, use it when you need to search products from your company"""
+
+    res = mvs_db.conduct_vector_similar_search(query=query, limit=5,
+                                               output_fields=output_fields)
+
+    entity_strings = []
+    index = 1
+    for search_res in res:
+        for hit in search_res:
+            entity = hit.entity.to_dict()["entity"]
+            entity_str = "* Product " + str(index) + ": " + ', '.join(
+                f"{key}: {value}" for key, value in entity.items())
+            entity_strings.append(entity_str)
+            index = index + 1
+
+    result_str = '\n'.join(entity_strings)
+    LOGGER.info("Search Tool found:{}".format(result_str))
+    return result_str
 
 class ChatBase:
     def __init__(self, model=None, in_memory=None, chats_history=None, number=None):
@@ -69,11 +95,10 @@ class ChatBase:
                                                                                                                with_memory,
                                                                                                                len(history)))
         try:
-            # TODO: Add prompt
-            if isSearch is True:
-                response = self.search_from_knowledge_base(query=query)
-                LOGGER.info("DataBase result{}".format(response['reply']))
-                return response
+            # if isSearch is True:
+            #     response = self.search_from_knowledge_base(query=query)
+            #     LOGGER.info("DataBase result{}".format(response['reply']))
+            #     return response
             # Create a Conversation Chain
             # Convert dicts to message object
             self.convert_message(history)
@@ -99,6 +124,7 @@ class ChatBase:
                 return {"reply": reply, "history": history}
             else:
 
+                products = wine_search(query)
                 memory = ConversationBufferWindowMemory(k=5, chat_memory=chat_history, memory_key="chat_history", input_key="input")
 
                 output_parser = CustomOutputParser()
@@ -120,7 +146,7 @@ class ChatBase:
                     agent=agent, tools=tools, verbose=True, memory=memory
                 )
 
-                reply = agent_executor.run({'input': query})
+                reply = agent_executor.run({'input': query, 'products': products})
                 LOGGER.info("Reply generated: {}".format(reply))
 
 
