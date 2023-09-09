@@ -12,8 +12,8 @@ class SalesWines:
 
     def chat_reply(self):
     # handle the return data to logic service
-        LOGGER.info("get into the chat_reply")
-        chat_reply = SalesWinesAction(model=self.model, in_memory=self.memory, chats_history=self.chat_history, number=self.num).chat_response(query=self.query)
+        LOGGER.info("get into the chat_reply, query:{}".format(self.query))
+        chat_reply = SalesWinesAction(model=self.model, in_memory=self.memory, chats_history=self.chat_history, number=self.num).chat_with_database(query=self.query)
         return chat_reply
 
     def get_history(self):
