@@ -43,7 +43,8 @@ formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(filename)s - %(fu
 # 4. Add formatter to handler
 ch.setFormatter(formatter)
 
-rHandler = logging.FileHandler('/Users/15408/PycharmProjects/Core-Service'+'/'+os.environ['FLASK_ENV']+'.log', encoding="utf-8", mode="a")
+# rHandler = logging.FileHandler('/Users/15408/PycharmProjects/Core-Service/logs'+'/'+os.environ['FLASK_ENV']+'.log', encoding="utf-8", mode="a")
+rHandler = logging.FileHandler('./logs/'+os.environ['FLASK_ENV']+'.log', encoding="utf-8", mode="a")
 rHandler.setLevel(logging.INFO)
 rHandler.setFormatter(formatter)
 # 5.将handler添加到logger中
