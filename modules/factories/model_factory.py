@@ -10,7 +10,6 @@ from utils.logging import LOGGER
 # create a LLM model, GPT is the default model
 from flask import current_app
 
-
 def create_model(model_name="", **kwargs):
 
     if 'openai_model_name' not in kwargs:

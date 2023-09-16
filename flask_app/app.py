@@ -105,6 +105,7 @@ def create_app(config_key='dev'):
                 query = data.get('query')
                 model_name = data.get('model_name')
                 history = data.get('history')
+                username = data.get('username')
                 with_memory = data.get('with_memory')
 
                 if not query:
@@ -114,7 +115,7 @@ def create_app(config_key='dev'):
                 LOGGER.info(
                     'Received chat request with query: {}, model_name: {}, with_memory: {}, history length: {}.'
                     .format(query, model_name, with_memory, 0 if history is None else len(history)))
-                response = SalesWines(query, model_name, with_memory, history).chat_reply()
+                response = SalesWines(query, model_name, with_memory, history, username=username).chat_reply()
 
                 LOGGER.info('Generated chat response: {}.'.format(response))
 

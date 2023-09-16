@@ -27,6 +27,7 @@ openai:
   max_tokens: 1024
   buffer_top_k: 10
 
+
 # Splitter configuration
 splitter:
   separator:
