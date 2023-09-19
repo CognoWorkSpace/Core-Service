@@ -97,6 +97,46 @@ def create_app(config_key='dev'):
                 LOGGER.error('An error occurred in chat_view_GET: {}.'.format(e))
                 return jsonify({'error': str(e)}), 500
 
+    @app.route("/wine_sales_given_history", methods=['POST', 'GET'])
+    def wine_sales_given_history_view():
+        if request.method == 'POST':
+            try:
+                data = request.get_json()
+                query = data.get('query')
+                model_name = data.get('model_name')
+                history = data.get('history')
+                username = data.get('username')
+                with_memory = data.get('with_memory')
+
+                if not query:
+                    LOGGER.error('Query must not be empty.')
+                    return jsonify({'error': 'Query must not be empty.'}), 400
+
+                LOGGER.info(
+                    'Received chat request with query: {}, model_name: {}, with_memory: {}, history : {}., username :{}'
+                    .format(query, model_name, with_memory, history, username))
+                response = SalesWines(query, model_name, with_memory, chat_history_dict=history,
+                                      username=username).chat_reply_given_history()
+
+                LOGGER.info('Generated chat response: {}.'.format(response))
+
+                return jsonify(response), 200
+            except ValueError as e:
+                LOGGER.error('Post content error occurred in wine_sales_given_history_view function: {}.'.format(e))
+                return jsonify(({'error': str(e)})), 400
+            except Exception as e:
+                LOGGER.error('An error occurred in wine_sales_given_history_view function: {}.'.format(e))
+                return jsonify({'error': str(e)}), 500
+
+        if request.method == 'GET':
+            try:
+                history = SalesWines().get_history()
+                LOGGER.info('Generated wine sales chat history: {}.'.format(history))
+                return jsonify({'history': history}), 200
+            except Exception as e:
+                LOGGER.error('An error occurred in wine_sales_given_history_view: {}.'.format(e))
+                return jsonify({'error': str(e)}), 500
+
     @app.route("/wine_sales", methods=['POST', 'GET'])
     def wine_sales_view():
         if request.method == 'POST':
@@ -105,6 +145,7 @@ def create_app(config_key='dev'):
                 query = data.get('query')
                 model_name = data.get('model_name')
                 history = data.get('history')
+                username = data.get('username')
                 with_memory = data.get('with_memory')
 
                 if not query:
@@ -114,7 +155,7 @@ def create_app(config_key='dev'):
                 LOGGER.info(
                     'Received chat request with query: {}, model_name: {}, with_memory: {}, history length: {}.'
                     .format(query, model_name, with_memory, 0 if history is None else len(history)))
-                response = SalesWines(query, model_name, with_memory, history).chat_reply()
+                response = SalesWines(query, model_name, with_memory, chat_history_dict=history, username=username).chat_reply()
 
                 LOGGER.info('Generated chat response: {}.'.format(response))
 

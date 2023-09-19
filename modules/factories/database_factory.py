@@ -15,15 +15,7 @@ def create_database(database_name="", collection_name="", connection_string="", 
         kwargs['openai_api_key'] = os.getenv("OPENAI_API_KEY")
 
     try:
-        if database_name == const.POSTGRES:
-            return PGVector.from_existing_index(
-                collection_name=collection_name,
-                connection_string=connection_string,
-                distance_strategy=DistanceStrategy.COSINE,
-                openai_api_key=kwargs['openai_api_key'],
-                embedding=embeddings
-            )
-        elif database_name == const.MILVUS:
+        if database_name == const.MILVUS:
             return Milvus(embedding_function=embeddings, collection_name=collection_name, connection_args=connection_string, drop_old=False)
         else:
             raise ValueError("Database does not exist!")
