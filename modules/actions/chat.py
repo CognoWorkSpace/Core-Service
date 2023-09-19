@@ -24,10 +24,10 @@ from utils.chat_history import get_or_create_chat_history
 
 
 class ChatBase:
-    def __init__(self, model=None, in_memory=None, chats_history=None, number=None, username="default"):
+    def __init__(self, model=None, in_memory=None, chat_history_dict=None, number=None, username="default"):
         self.model_name = model
         self.with_memory = in_memory
-        self.history = chats_history
+        self.chat_history_dict = chat_history_dict
         self.num = number
         self.username = username
 
