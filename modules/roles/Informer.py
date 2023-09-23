@@ -1,4 +1,4 @@
-from modules.actions.conno_wines import ConnoWinesAction
+from modules.actions.somme_wines import SommeAction
 from utils.logging import LOGGER
 
 
@@ -13,8 +13,8 @@ class ConWines:
     def chat_reply(self):
     # handle the return data to logic service
         LOGGER.info("get into the chat_reply")
-        chat_reply = ConnoWinesAction(model=self.model, in_memory=self.memory, chats_history=self.chat_history, number=self.num).chat(query=self.query)
+        chat_reply = SommeAction(model=self.model, in_memory=self.memory, chats_history=self.chat_history, number=self.num).chat(query=self.query)
         return chat_reply
 
     def get_history(self):
-        return ConnoWinesAction().get_history()
+        return SommeAction().get_history()
