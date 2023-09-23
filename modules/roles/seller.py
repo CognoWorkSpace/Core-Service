@@ -2,7 +2,7 @@ from modules.actions.sale_wines import SalesWinesAction
 from utils.logging import LOGGER
 
 
-class SalesWines:
+class Seller:
     def __init__(self, query=None, model=None, in_memory=None, chat_history_dict=None, username="default",  number=10):
         self.query = query
         self.model = model
