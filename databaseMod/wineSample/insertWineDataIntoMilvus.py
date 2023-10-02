@@ -1,3 +1,8 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
 import pandas as pd
 
 from databaseMod.milvusDB import MilvusDB
@@ -8,7 +13,7 @@ pd.set_option('display.max_columns', None)
 mvs_db = MilvusDB()
 mvs_db.db_name = 'wine'
 
-df = mvs_db.read_df_with_vector(csv_file_path='wineData/wine_data_from_aws.csv',
+df = mvs_db.read_df_with_vector(csv_file_path='wineData/wine_data_w_embed.csv',
                                 embedded_col='wine_info_embed',
                                 index_col=None)
 df.drop(columns=['combined'], inplace=True)
