@@ -14,14 +14,14 @@ LOGGER.info("Print INFO level log")
 
 display:
 
-2023-07-17 05:49:50,674 - ERROR - demo.py - <module> - 3 - Print ERROR level log, error is 123
-2023-07-17 05:49:50,674 - WARNING - demo.py - <module> - 4 - Print WARNING level log
-2023-07-17 05:49:50,674 - INFO - demo.py - <module> - 5 - Print INFO level log
+2023-07-17 05:49:50,674 - ERROR - demo_template.py - <module> - 3 - Print ERROR level log, error is 123
+2023-07-17 05:49:50,674 - WARNING - demo_template.py - <module> - 4 - Print WARNING level log
+2023-07-17 05:49:50,674 - INFO - demo_template.py - <module> - 5 - Print INFO level log
 
 as the first log as example
 2023-07-17 05:49:50,674 -> logging time
 ERROR -> logging level
-demo.py -> use log  file location
+demo_template.py -> use log  file location
 <module> -> which function use
 3 -> logging write line in this file
 Print ERROR level log, error is 123 -> message
