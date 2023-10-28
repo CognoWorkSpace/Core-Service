@@ -15,6 +15,12 @@
 # 　＼_つ
 #
 # Description:
+# memory_template_chat_history_input = """
+# ## Chat log:
+# {chat_history}
+# Customer: {input}
+# CognoPal:
+# """
 memory_template_chat_history_input = """        
 ## Chat log:
 {chat_history}

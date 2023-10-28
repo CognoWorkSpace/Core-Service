@@ -21,6 +21,7 @@ from langchain.agents import Tool
 from modules.prompts.seller_template import seller_with_database_template_products, \
     seller_with_agent_memory_template_products_tools_chat_history_agent_scratchpad_input
 from modules.prompts.memory_template import memory_template_chat_history_input
+from modules.prompts.demo_template import demo_seller_with_database_template_products
 
 from utils.database import mvs_db_wines, output_fields_wines
 
@@ -50,7 +51,7 @@ class SalesWinesAction(ChatBase):
         res = mvs_db_wines.conduct_vector_similar_search(query=query, limit=5,
                                                    output_fields=output_fields_wines)
 
-        entity_strings = []
+        entity_strings=[]
         index = 1
         for search_res in res:
             for hit in search_res:
@@ -74,9 +75,7 @@ class SalesWinesAction(ChatBase):
         for message in messages:
             chat_history_local.add_message(message=message)
 
-        LOGGER.info("get into the chat_with_database, query:{}".format(query))
-        template = seller_with_database_template_products
-        LOGGER.info("get into the chat_with_database2, query:{}".format(query))
+        template = demo_seller_with_database_template_products
         products = self.database_search(query)
 
         LOGGER.info("Database result: {}".format(products))
